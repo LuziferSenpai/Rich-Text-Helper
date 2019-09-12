@@ -1,0 +1,9 @@
+---------------------------------------------------------------------------------------------------
+Version 0.0.1
+Date: 12.09.2019
+  Features:
+    - Massiv GUI
+    - Nearly every Rich Text Feature supported
+    - Can Set Backer Names
+    - Can write Messages in your Name
+    - Can place Map Tags

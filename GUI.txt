@@ -1,0 +1,206 @@
+Button
+	A["04"]["20"] RichButton01
+	A["04"]["25"] RichButton02
+	A["04"]["27"] RichButton03
+	A["04"]["28"] RichButton04
+	A["04"]["29"] RichButton05
+
+	B["02"]["04"] RichButton06
+	B["02"]["05"] RichButton07
+
+	C["02"]["19"] RichButton08
+	C["02"]["21"] RichButton09
+	C["02"]["22"] RichButton10
+	C["02"]["23"] RichButton11
+
+	D["02"]["04"] RichButton12
+	D["02"]["05"] RichButton13
+	D["02"]["06"] RichButton14
+
+	E["02"]["03"] RichButton15
+	E["02"]["05"] RichButton16
+	E["02"]["05"] RichButton17
+
+	F["02"]["05"] RichButton18
+	F["02"]["06"] RichButton19
+
+	G["02"]["05"] RichButton20
+	G["02"]["06"] RichButton21
+
+	PresetButton
+		C["03"] RichPresetButtons
+
+ChooseElem
+	A["04"]["26"] RichChooseElem01
+
+	B["03"] 	  RichChooseElem02
+
+DropDown
+	A["04"]["17"] RichDropDown01
+
+	B["02"]["03"] RichDropDown02
+
+	C["02"]["03"] RichDropDown03
+
+	D["02"]["03"] RichDropDown04
+
+	E["02"]["03"] RichDropDown05
+
+	F["02"]["03"] RichDropDown06
+
+	G["02"]["03"] RichDropDown07
+
+Flow
+	A["02"]["01"] RichFlow01
+	A["03"]["05"] RichFlow02
+	A["03"]["07"] RichFlow03
+	A["03"]["08"] RichFlow04
+	A["03"]["09"] RichFlow05
+	A["03"]["11"] RichFlow06
+
+	B["01"]["01"] RichFlow07
+	B["01"]["03"] RichFlow08
+	B["01"]["04"] RichFlow09
+
+	C["01"]["01"] RichFlow10
+	C["01"]["03"] RichFlow11
+	C["01"]["04"] RichFlow12
+	C["01"]["05"] RichFlow13
+	C["01"]["06"] RichFlow14
+	C["01"]["07"] RichFlow15
+	C["01"]["08"] RichFlow16
+	C["01"]["10"] RichFlow17
+
+	D["01"]["01"] RichFlow18
+	D["01"]["03"] RichFlow19
+
+	E["01"]["01"] RichFlow20
+	E["01"]["03"] RichFlow21
+	E["01"]["05"] RichFlow22
+
+	F["01"]["01"] RichFlow23
+	F["01"]["03"] RichFlow24
+
+	G["01"]["01"] RichFlow25
+	G["01"]["03"] RichFlow26
+
+Frame
+	A["01"] 	  RichFrame01
+	A["02"]["02"] RichFrame02
+
+	HiddenFrame
+		A["02"]["03"] RichHiddenFrame01
+
+Label
+	A["03"]["01"] RichLabel01
+	A["04"]["15"] RichLabel02
+	A["04"]["21"] RichLabel03
+	A["04"]["22"] RichLabel04
+	A["04"]["23"] RichLabel05
+
+	B["02"]["01"] RichLabel06
+
+	C["02"]["01"] RichLabel07
+	C["02"]["05"] RichLabel08
+	C["02"]["08"] RichLabel09
+	C["02"]["11"] RichLabel10
+	C["02"]["16"] RichLabel11
+	C["02"]["17"] RichLabel12
+
+	D["02"]["01"] RichLabel13
+
+	E["02"]["01"] RichLabel14
+	E["02"]["05"] RichLabel15
+
+	F["02"]["01"] RichLabel16
+
+	G["02"]["01"] RichLabel17
+
+	HiddenLabel
+		C["02"]["04"] RichHiddenLabel01
+
+Line
+	A["03"]["06"] RichLine01
+	A["03"]["10"] RichLine02
+
+	B["01"]["02"] RichLine03
+
+	C["01"]["02"] RichLine04
+	C["01"]["09"] RichLine05
+
+	D["01"]["02"] RichLine06
+
+	E["01"]["02"] RichLine07
+	E["01"]["04"] RichLine08
+
+	F["01"]["02"] RichLine09
+
+	G["01"]["02"] RichLine10
+
+Pane
+	A["03"]["04"] RichPane
+
+ScrollPane
+	A["04"]["08"] RichScrollPane01
+	A["04"]["09"] RichScrollPane02
+	A["04"]["10"] RichScrollPane03
+	A["04"]["11"] RichScrollPane04
+	A["04"]["12"] RichScrollPane05
+	A["04"]["13"] RichScrollPane06
+	A["04"]["14"] RichScrollPane07
+
+Slider
+	C["02"]["06"] RichSlider01
+	C["02"]["09"] RichSlider02
+	C["02"]["12"] RichSlider03
+
+SpriteButton
+	A["03"]["03"] RichSpriteButton01
+	A["04"]["18"] RichSpriteButton02
+
+	E["02"]["04"] RichSpriteButton03
+
+	F["02"]["04"] RichSpriteButton04
+
+	G["02"]["04"] RichSpriteButton05
+
+Tab
+	A["04"]["01"] RichTab01
+	A["04"]["02"] RichTab02
+	A["04"]["02"] RichTab02
+	A["04"]["04"] RichTab04
+	A["04"]["05"] RichTab05
+	A["04"]["06"] RichTab06
+	A["04"]["07"] RichTab07
+
+Table
+	C["02"]["20"] RichTable
+
+TextField
+	A["03"]["19"] RichTextField01
+	A["03"]["24"] RichTextField02
+
+	C["02"]["07"] RichTextField03
+	C["02"]["10"] RichTextField04
+	C["02"]["13"] RichTextField05
+	C["02"]["14"] RichTextField06
+	C["02"]["18"] RichTextField07
+
+	E["02"]["06"] RichTextField08
+
+Widget
+	A["03"]["02"] RichWidget01
+	A["04"]["16"] RichWidget02
+
+	B["02"]["02"] RichWidget03
+
+	C["02"]["02"] RichWidget04
+	C["02"]["15"] RichWidget05
+	
+	D["02"]["02"] RichWidget06
+
+	E["02"]["02"] RichWidget07
+
+	F["02"]["02"] RichWidget08
+
+	G["02"]["02"] RichWidget09
