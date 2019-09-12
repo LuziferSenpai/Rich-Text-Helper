@@ -525,7 +525,7 @@ Functions.Tab05Update = function( player_id )
 				if next( locomotives.back_movers ) then
 					for _, locomotive in pairs( locomotives.back_movers ) do
 						SavedTrains.Number = SavedTrains.Number + 1
-						if SavedTrainStops.Number < 1000 then
+						if SavedTrains.Number < 1000 then
 							index_number = Functions.Format3Digit( SavedTrains.Number )
 							SavedTrains.UnitNumbers[index_number] = locomotive.unit_number
 							SavedTrains.BackerNames[index_number] = locomotive.backer_name
@@ -539,7 +539,7 @@ Functions.Tab05Update = function( player_id )
 				if next( locomotives.front_movers ) then
 					for _, locomotive in pairs( locomotives.front_movers ) do
 						SavedTrains.Number = SavedTrains.Number + 1
-						if SavedTrainStops.Number < 1000 then
+						if SavedTrains.Number < 1000 then
 							index_number = Functions.Format3Digit( SavedTrains.Number )
 							SavedTrains.UnitNumbers[index_number] = locomotive.unit_number
 							SavedTrains.BackerNames[index_number] = locomotive.backer_name
