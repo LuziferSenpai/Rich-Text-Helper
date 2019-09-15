@@ -14,6 +14,7 @@ Functions.Globals = function()
 	global.CurrentRichText = global.CurrentRichText or {}
 	global.CurrentHEX = global.CurrentHEX or {}
 	global.CurrentPosition = global.CurrentPosition or {}
+	global.Reset = global.Reset or {}
 end
 
 --Player Data
@@ -173,6 +174,26 @@ Functions.MainGUIToggle = function( player_id )
 		GUI.visible = not GUI.visible
 	else
 		Functions.MainGUI( screen, player_id )
+
+		if global.Reset[player_id] then
+			global.Reset[player_id] = false
+			local SavedColors = global.SavedColors[player_id]
+
+			global.SavedColors[player_id] =
+			{
+				Number = 0,
+				Colors = {},
+				ColorNames = {}
+			}
+	
+			local Colors = SavedColors.Colors
+	
+			if next( Colors ) then
+				for entry, color in pairs( Colors ) do
+					Functions.Tab02AddPreset( player_id, "addcurrent", SavedColors.ColorNames[entry], color )
+				end
+			end
+		end
 	end
 end
 
@@ -717,6 +738,7 @@ Functions.PlayerStart = function( player_id )
 	global.CurrentRichText[player_id] = global.CurrentRichText[player_id] or ""
 	global.CurrentHEX[player_id] = global.CurrentHEX[player_id] or "#000000"
 	global.CurrentPosition[player_id] = global.CurrentPosition[player_id] or {}
+	global.Reset[player_id] = global.Reset[player_id] or false
 	global.SavedRichTexts[player_id] = global.SavedRichTexts[player_id] or
 	{
 		Number = 0,

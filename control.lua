@@ -10,14 +10,14 @@ script.on_init( function()
 	Functions.Players()
 end )
 
-script.on_configuration_changed( function()
-	local changes = ee.mod_changes or {}
+script.on_configuration_changed( function( event )
+	local changes = event.mod_changes or {}
 
-	if next( d ) then
+	if next( changes ) then
 		Functions.Globals()
 		Functions.Players()
 
-		local richchanges = d["Rich_Text_Helper"] or {}
+		local richchanges = changes["Rich_Text_Helper"] or {}
 
 		if next( richchanges ) then
 			local oldversion = richchanges.old_version
@@ -26,32 +26,13 @@ script.on_configuration_changed( function()
 				if oldversion <= "0.0.2" then
 
 					for _, p in pairs( game.players ) do
+						local player_id = p.index
+
 						if next( global.GUIS[player_id] ) then
-							local player_id = p.index
-							local GUI = global.GUIS[player_id]
-	
-							global.CurrentRichText[player_id] = GUI.A["04"]["24"]
-	
-							GUI.A["01"].destroy()
-	
-							Functions.MainGUIToggle( player_id )
-	
-							local SavedColors = global.SavedColors[player_id]
-	
-							global.SavedColors[player_id] =
-							{
-								Number = 0,
-								Colors = {},
-								ColorNames = {}
-							}
-	
-							local Colors = SavedColors
-	
-							if next( Colors ) then
-								for entry, color in pairs( Colors ) do
-									Functions.Tab02AddPreset( player_id, "addcurrent", SavedColors.ColorNames[entry], color )
-								end
-							end
+							local screen = p.gui.screen
+							screen.RichFrame01.destroy()
+							global.Reset[player_id] = true
+							global.GUIS[player_id] = {}
 						end
 					end
 				end
