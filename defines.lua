@@ -83,16 +83,16 @@ defines.Menus.Tab02.ColorDropDownRGB =
 
 defines.Menus.Tab02.SlidersRGB =
 {
-	["RichSlider01"] = true,
-	["RichSlider02"] = true,
-	["RichSlider03"] = true
+	["RichSliderCGUI01"] = true,
+	["RichSliderCGUI02"] = true,
+	["RichSliderCGUI03"] = true
 }
 
 defines.Menus.Tab02.TextfieldsRGB =
 {
-	["RichTextField03"] = true,
-	["RichTextField04"] = true,
-	["RichTextField05"] = true
+	["RichTextFieldCGUI01"] = true,
+	["RichTextFieldCGUI02"] = true,
+	["RichTextFieldCGUI03"] = true
 }
 
 defines.Menus.Tab03 = {}
