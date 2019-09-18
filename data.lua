@@ -74,6 +74,27 @@ s["richtextbox"] =
     horizontally_stretchable = "on"
 }
 
+s["richclosebutton"] =
+{
+    type = "button_style",
+    parent = "close_button",
+    size = 28
+}
+
+s["richheadline"] =
+{
+    type = "line_style",
+    top_margin = 4,
+    bottom_margin = 8
+}
+
+s["richline"] =
+{
+    type = "line_style",
+    top_margin = 8,
+    bottom_margin = 8
+}
+
 data:extend
 {
     {

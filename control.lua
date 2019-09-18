@@ -13,6 +13,22 @@ end )
 script.on_configuration_changed( function( event )
 	local changes = event.mod_changes or {}
 
+	local circuitchchanges = changes["Simple_Circuit_Trains"] or {}
+
+	if next( circuitchchanges ) then
+		local visible = false
+		if circuitchchanges.new_version then
+			visible = true
+		end
+		for _, p in pairs( game.players ) do
+			if next( global.GUIS[p.index] ) then
+				global.GUIS[p.index].A["04"]["35"].visible = visible
+			end
+		end
+	end
+
+	game.write_file( "test.txt", serpent.block( changes ) )
+
 	if next( changes ) then
 		Functions.Globals()
 		Functions.Players()
@@ -33,6 +49,16 @@ script.on_configuration_changed( function( event )
 							screen.RichFrame01.destroy()
 							global.Reset[player_id] = true
 							global.GUIS[player_id] = {}
+						end
+					end
+				end
+
+				if oldversion <= "0.0.4" then
+					for _, p in pairs( game.players ) do
+						if next( global.GUIS[p.index] ) then
+							global.GUIS[p.index].A["01"].destroy()
+
+							global.Reset[p.index] = true
 						end
 					end
 				end
@@ -142,6 +168,16 @@ script.on_event( de.on_gui_click, function( event )
 						end
 					else
 						player.print( { "Rich.NoEntityOpen" } )
+					end
+				else
+					player.print( { "Rich.NoRichText" } )
+				end
+			elseif name == "RichButtonAGUI09" then
+				if TEXTLEN > 0 then
+					local boolean = remote.call( "LineName", "Change", player_id, TEXT )
+
+					if boolean then
+						player.print( { "Rich.CircuitNotOpen" } )
 					end
 				else
 					player.print( { "Rich.NoRichText" } )
@@ -465,9 +501,8 @@ script.on_event( de.on_gui_location_changed, function( event )
 
 	if next( global.GUIS[player_id] ) then
 		local element = event.element
-		local name = element.name
 
-		if name == "RichFrameAGUI01" then
+		if element.name == "RichFrameAGUI01" then
 			global.Position[player_id] = element.location
 		end
 	end

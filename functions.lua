@@ -43,20 +43,21 @@ Functions.MainGUI = function( parent, player_id )
 		["04"] = Functions.AddPane( A["02"]["02"], "RichPaneAGUI01" ),
 
 		["05"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI02", "horizontal", "richtabtitleflow" ),
-		["06"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI01", "horizontal" ),
+		["06"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI01", "horizontal", "richheadline" ),
 
 		["07"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI03", "horizontal", "richcolorflow" ),
-		["08"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI02", "horizontal" ),
+		["08"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI02", "horizontal", "richline" ),
 
 		["09"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI04", "horizontal", "richbuttonflow" ),
-		["10"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI03", "horizontal" ),
+		["10"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI03", "horizontal", "richline" ),
 
 		["11"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI05", "horizontal", "richcolorflow" ),
 		["12"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI06", "horizontal", "richcolorflow" ),
 		["13"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI07", "horizontal", "richcolorflow" ),
-		["14"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI04", "horizontal" ),
+		["14"] = Functions.AddLine( A["02"]["03"], "RichLineAGUI04", "horizontal", "richline" ),
 
-		["15"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI08", "horizontal", "richbuttonflow" )
+		["15"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI08", "horizontal", "richbuttonflow" ),
+		["16"] = Functions.AddFlow( A["02"]["03"], "RichFlowAGUI09", "horizontal", "richbuttonflow" )
 	}
 	A["04"] =
 	{
@@ -78,7 +79,7 @@ Functions.MainGUI = function( parent, player_id )
 		["15"] = Functions.AddLabel( A["03"]["05"], "RichLabelAGUI02", { "Rich.TextTitle" }, "caption_label" ),
 		["16"] = Functions.AddWidget( A["03"]["05"], "RichWidgetAGUI02" ),
 		["17"] = Functions.AddDropDown( A["03"]["05"], "RichDropDownAGUI01", global.SavedRichTexts[player_id].RichTextNames ),
-		["18"] = Functions.AddSpriteButton( A["03"]["05"], "RichSpriteButtonAGUI02", "utility/remove", "close_button" ),
+		["18"] = Functions.AddSpriteButton( A["03"]["05"], "RichSpriteButtonAGUI02", "utility/remove", "richclosebutton" ),
 
 		["19"] = Functions.AddLabel( A["03"]["07"], "RichLabelAGUI03", { "Rich.DropdownSelection" }, "description_label" ),
 		["20"] = Functions.AddLabel( A["03"]["07"], "RichLabelAGUI04", "" ),
@@ -100,7 +101,9 @@ Functions.MainGUI = function( parent, player_id )
 		["31"] = Functions.AddChooseElemButton( A["03"]["15"], "RichChooseElemAGUI01", "signal" ),
 		["32"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI06", { "Rich.CreateTag" } ),
 		["33"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI07", { "Rich.SendMessage" } ),
-		["34"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI08", { "Rich.BackerName" } )
+		["34"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI08", { "Rich.BackerName" } ),
+		["35"] = Functions.AddButton( A["03"]["16"], "RichButtonAGUI09", { "Rich.SetLine" } ),
+		["36"] = Functions.AddButton( A["03"]["16"], "RichButtonAGUI10", { "Rich.SetNetwork" } )
 	}
 
 	A["01"].location = global.Position[player_id]
@@ -119,17 +122,12 @@ Functions.MainGUI = function( parent, player_id )
 	A["03"]["04"].add_tab( A["04"]["06"], A["04"]["13"] )
 	--A["03"]["04"].add_tab( A["04"]["07"], A["04"]["14"] )
 	A["03"]["05"].style.top_margin = 8
-	A["03"]["06"].style.top_margin = 4
-	A["03"]["06"].style.bottom_margin = 8
-	A["03"]["08"].style.top_margin = 8
-	A["03"]["08"].style.bottom_margin = 8
-	A["03"]["10"].style.top_margin = 8
-	A["03"]["10"].style.bottom_margin = 8
 	A["03"]["12"].style.top_margin = 8
 	A["03"]["12"].style.bottom_margin = 8
-	A["03"]["14"].style.top_margin = 8
-	A["03"]["14"].style.bottom_margin = 8
 	A["03"]["15"].style.vertical_align = "center"
+	A["03"]["16"].style.vertical_align = "center"
+	A["03"]["16"].style.top_margin = 8
+	
 	A["04"]["08"].horizontal_scroll_policy = "never"
 	A["04"]["09"].horizontal_scroll_policy = "never"
 	A["04"]["10"].horizontal_scroll_policy = "never"
@@ -138,8 +136,6 @@ Functions.MainGUI = function( parent, player_id )
 	A["04"]["13"].horizontal_scroll_policy = "never"
 	A["04"]["14"].horizontal_scroll_policy = "never"
 	A["04"]["16"].style.horizontally_stretchable = true
-	A["04"]["18"].style.width = 28
-	A["04"]["18"].style.height = 28
 	A["04"]["20"].style.width = 400
 	A["04"]["20"].style.single_line = false
 	A["04"]["21"].style.horizontally_stretchable = true
@@ -148,9 +144,18 @@ Functions.MainGUI = function( parent, player_id )
 	A["04"]["27"].style.width = 420
 	A["04"]["27"].style.single_line = false
 	A["04"]["29"].style.width = 110
+	A["04"]["31"].style.width = 28
+	A["04"]["31"].style.height = 28
 	A["04"]["32"].style.horizontally_stretchable = true
 	A["04"]["33"].style.horizontally_stretchable = true
 	A["04"]["34"].style.horizontally_stretchable = true
+	A["04"]["35"].style.horizontally_stretchable = true
+	A["04"]["35"].style.horizontally_stretchable = true
+	A["04"]["36"].visible = false
+
+	if not game.active_mods["Simple_Circuit_Trains"] then
+		A["04"]["35"].visible = false
+	end
 
 	global.GUIS[player_id].A = A
 
@@ -253,7 +258,7 @@ Functions.Tab01 = function( parent, player_id )
 	B["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowBGUI01", "horizontal", "richtabtitleflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineBGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineBGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowBBGUI02", "horizontal", "richbuttonflow" ),
 		["04"] = Functions.AddFlow( parent, "RichFlowBGUI03", "horizontal", "richbuttonflow" )
 	}
@@ -266,8 +271,6 @@ Functions.Tab01 = function( parent, player_id )
 		["05"] = Functions.AddButton( B["01"]["04"], "RichButtonBGUI02", { "Rich.AddAfter" } )
 	}
 
-	B["01"]["02"].style.top_margin = 4
-	B["01"]["02"].style.bottom_margin = 8
 	B["01"]["02"].visible = false
 	B["01"]["03"].style.bottom_margin = 8
 	B["01"]["03"].visible = false
@@ -302,14 +305,14 @@ Functions.Tab02 = function( parent, player_id )
 	C["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowCGUI01", "horizontal", "richtabtitleflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineCGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineCGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowCGUI02", "horizontal", "richcolorflow" ),
 		["04"] = Functions.AddFlow( parent, "RichFlowCGUI03", "horizontal", "richcolorflow" ),
 		["05"] = Functions.AddFlow( parent, "RichFlowCGUI04", "horizontal", "richcolorflow" ),
 		["06"] = Functions.AddFlow( parent, "RichFlowCGUI05", "horizontal", "richcolorflow" ),
 		["07"] = Functions.AddFlow( parent, "RichFlowCGUI06", "horizontal", "richcolorflow" ),
 		["08"] = Functions.AddFlow( parent, "RichFlowCGUI07", "horizontal", "richcolorflow" ),
-		["09"] = Functions.AddLine( parent, "RichLineCGUI02", "horizontal" ),
+		["09"] = Functions.AddLine( parent, "RichLineCGUI02", "horizontal", "richheadline" ),
 		["10"] = Functions.AddFlow( parent, "RichFlowCGUI08", "horizontal", "richbuttonflow" )
 	}
 	C["02"] =
@@ -340,10 +343,6 @@ Functions.Tab02 = function( parent, player_id )
 	}
 	C["03"] = {}
 
-	C["01"]["02"].style.top_margin = 4
-	C["01"]["02"].style.bottom_margin = 8
-	C["01"]["09"].style.top_margin = 4
-	C["01"]["09"].style.bottom_margin = 8
 	C["02"]["02"].style.horizontally_stretchable = true
 	C["02"]["04"].visible = false
 	C["02"]["07"].style.width = 40
@@ -447,7 +446,7 @@ Functions.Tab03 = function( parent, player_id )
 	D["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowDGUI01", "horizontal", "richtabtitleflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineDGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineDGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowDGUI02", "horizontal", "richbuttonflow" )
 	}
 	D["02"] =
@@ -460,8 +459,6 @@ Functions.Tab03 = function( parent, player_id )
 		["06"] = Functions.AddButton( D["01"]["03"], "RichButtonDGUI03", { "Rich.Applyto" } )
 	}
 
-	D["01"]["02"].style.top_margin = 4
-	D["01"]["02"].style.bottom_margin = 8
 	D["02"]["02"].style.horizontally_stretchable = true
 	D["02"]["04"].style.horizontally_stretchable = true
 	D["02"]["05"].style.horizontally_stretchable = true
@@ -477,11 +474,11 @@ Functions.Tab04 = function( parent, player_id )
 	E["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowEGUI01", "horizontal", "richtabtitleflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineEGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineEGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowEGUI02", "horizontal", "richcolorflow" ),
-		["04"] = Functions.AddLine( parent, "RichLineEGUI02", "horizontal" ),
+		["04"] = Functions.AddLine( parent, "RichLineEGUI02", "horizontal", "richline" ),
 		["05"] = Functions.AddFlow( parent, "RichFlowEGUI03", "horizontal", "richcolorflow" ),
-		["06"] = Functions.AddLine( parent, "RichLineEGUI03", "horizontal" ),
+		["06"] = Functions.AddLine( parent, "RichLineEGUI03", "horizontal", "richline" ),
 		["07"] = Functions.AddFlow( parent, "RichFlowEGUI04", "horizontal", "richbuttonflow" )
 	}
 	E["02"] =
@@ -489,7 +486,7 @@ Functions.Tab04 = function( parent, player_id )
 		["01"] = Functions.AddLabel( E["01"]["01"], "RichLabelEGUI01", { "Rich.Tab04Title" }, "caption_label" ),
 		["02"] = Functions.AddWidget( E["01"]["01"], "RichWidgetEGUI01" ),
 		["03"] = Functions.AddDropDown( E["01"]["01"], "RichDropDownEGUI01", global.SavedGPS[player_id].PositionNames ),
-		["04"] = Functions.AddSpriteButton( E["01"]["01"], "RichSpriteButtonEGUI01", "utility/remove", "close_button" ),
+		["04"] = Functions.AddSpriteButton( E["01"]["01"], "RichSpriteButtonEGUI01", "utility/remove", "richclosebutton" ),
 		["05"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI02", { "Rich.DropdownSelection" }, "description_label" ),
 		["06"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI03", "" ),
 		["07"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI04", "" ),
@@ -500,15 +497,7 @@ Functions.Tab04 = function( parent, player_id )
 		["12"] = Functions.AddButton( E["01"]["07"], "RichButtonEGUI03", { "Rich.AddAfter" } )
 	}
 
-	E["01"]["02"].style.top_margin = 4
-	E["01"]["02"].style.bottom_margin = 8
-	E["01"]["04"].style.top_margin = 8
-	E["01"]["04"].style.bottom_margin = 8
-	E["01"]["06"].style.top_margin = 8
-	E["01"]["06"].style.bottom_margin = 8
 	E["02"]["02"].style.horizontally_stretchable = true
-	E["02"]["04"].style.width = 28
-	E["02"]["04"].style.height = 28
 	E["02"]["09"].style.width = 110
 	E["02"]["10"].tooltip = { "Rich.CurrentCoords" }
 	E["02"]["11"].style.horizontally_stretchable = true
@@ -579,7 +568,7 @@ Functions.Tab05 = function( parent, player_id )
 	F["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowFGUI01", "horizontal", "richtitlebarflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineFGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineFGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowFGUI02", "horizontal", "richbuttonflow" )
 	}
 	F["02"] =
@@ -587,16 +576,12 @@ Functions.Tab05 = function( parent, player_id )
 		["01"] = Functions.AddLabel( F["01"]["01"], "RichLabelFGUI01", { "Rich.Tab05Title" }, "caption_label" ),
 		["02"] = Functions.AddWidget( F["01"]["01"], "RichWidgetFGUI01" ),
 		["03"] = Functions.AddDropDown( F["01"]["01"], "RichDropDownFGUI01", {} ),
-		["04"] = Functions.AddSpriteButton( F["01"]["01"], "RichSpriteButtonFGUI01", "utility/refresh", "close_button" ),
+		["04"] = Functions.AddSpriteButton( F["01"]["01"], "RichSpriteButtonFGUI01", "utility/refresh", "richclosebutton" ),
 		["05"] = Functions.AddButton( F["01"]["03"], "RichButtonFGUI01", { "Rich.AddBefore" } ),
 		["06"] = Functions.AddButton( F["01"]["03"], "RichButtonFGUI02", { "Rich.AddAfter" } )
 	}
 
-	F["01"]["02"].style.top_margin = 4
-	F["01"]["02"].style.bottom_margin = 8
 	F["02"]["02"].style.horizontally_stretchable = true
-	F["02"]["04"].style.width = 28
-	F["02"]["04"].style.height = 28
 	F["02"]["05"].style.horizontally_stretchable = true
 	F["02"]["06"].style.horizontally_stretchable = true
 
@@ -666,7 +651,7 @@ Functions.Tab06 = function( parent, player_id )
 	G["01"] =
 	{
 		["01"] = Functions.AddFlow( parent, "RichFlowGGUI01", "horizontal", "richtitlebarflow" ),
-		["02"] = Functions.AddLine( parent, "RichLineGGUI01", "horizontal" ),
+		["02"] = Functions.AddLine( parent, "RichLineGGUI01", "horizontal", "richheadline" ),
 		["03"] = Functions.AddFlow( parent, "RichFlowGGUI02", "horizontal", "richbuttonflow" )
 	}
 	G["02"] =
@@ -674,16 +659,12 @@ Functions.Tab06 = function( parent, player_id )
 		["01"] = Functions.AddLabel( G["01"]["01"], "RichLabelGGUI01", { "Rich.Tab06Title" }, "caption_label" ),
 		["02"] = Functions.AddWidget( G["01"]["01"], "RichWidgetGGUI01" ),
 		["03"] = Functions.AddDropDown( G["01"]["01"], "RichDropDownGGUI01", {} ),
-		["04"] = Functions.AddSpriteButton( G["01"]["01"], "RichSpriteButtonGGUI01", "utility/refresh", "close_button" ),
+		["04"] = Functions.AddSpriteButton( G["01"]["01"], "RichSpriteButtonGGUI01", "utility/refresh", "richclosebutton" ),
 		["05"] = Functions.AddButton( G["01"]["03"], "RichButtonGGUI01", { "Rich.AddBefore" } ),
 		["06"] = Functions.AddButton( G["01"]["03"], "RichButtonGGUI02", { "Rich.AddAfter" } )
 	}
 
-	G["01"]["02"].style.top_margin = 4
-	G["01"]["02"].style.bottom_margin = 8
 	G["02"]["02"].style.horizontally_stretchable = true
-	G["02"]["04"].style.width = 28
-	G["02"]["04"].style.height = 28
 	G["02"]["05"].style.horizontally_stretchable = true
 	G["02"]["06"].style.horizontally_stretchable = true
 
@@ -817,8 +798,8 @@ Functions.AddLabel = function( parent, name, caption, style )
 	return parent.add{ type = "label", name = name, caption = caption, style = style }
 end
 
-Functions.AddLine = function( parent, name, direction )
-	return parent.add{ type = "line", name = name, direction = direction }
+Functions.AddLine = function( parent, name, direction, style )
+	return parent.add{ type = "line", name = name, direction = direction, style = style }
 end
 
 Functions.AddPane = function( parent, name )
