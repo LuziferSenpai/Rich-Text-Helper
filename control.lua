@@ -58,7 +58,20 @@ script.on_configuration_changed( function( event )
 						if next( global.GUIS[p.index] ) then
 							global.GUIS[p.index].A["01"].destroy()
 
+							global.GUIS[p.index] = {}
+
 							global.Reset[p.index] = true
+						end
+					end
+				end
+
+				if oldversion <= "0.1.0" then
+					for _, p in pairs( game.players ) do
+						if next( global.GUIS[p.index] ) then
+							if not p.gui.screen.RichFrameAGUI01 then
+								global.GUIS[p.index] = {}
+								global.Reset[p.index] = true
+							end
 						end
 					end
 				end
