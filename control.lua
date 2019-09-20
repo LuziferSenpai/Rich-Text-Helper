@@ -27,8 +27,6 @@ script.on_configuration_changed( function( event )
 		end
 	end
 
-	game.write_file( "test.txt", serpent.block( changes ) )
-
 	if next( changes ) then
 		Functions.Globals()
 		Functions.Players()

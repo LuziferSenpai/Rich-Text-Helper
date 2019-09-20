@@ -594,6 +594,8 @@ end
 Functions.Tab05Update = function( player_id )
 	local player = game.players[player_id]
 	local force = player.force
+	local datatable = {}
+	local sorttable = {}
 	local SavedTrains =
 	{
 		Number = 0,
@@ -611,31 +613,38 @@ Functions.Tab05Update = function( player_id )
 
 				if next( locomotives.back_movers ) then
 					for _, locomotive in pairs( locomotives.back_movers ) do
-						SavedTrains.Number = SavedTrains.Number + 1
-						if SavedTrains.Number < 1000 then
-							index_number = Functions.Format3Digit( SavedTrains.Number )
-							SavedTrains.UnitNumbers[index_number] = locomotive.unit_number
-							SavedTrains.BackerNames[index_number] = locomotive.backer_name
-						else
-							player.print( { "Rich.PresetsError1000" } )
-							return
-						end
+						datatable[locomotive.backer_name] = locomotive.unit_number
+
+						table.insert( sorttable, locomotive.backer_name )
 					end
 				end
 
 				if next( locomotives.front_movers ) then
 					for _, locomotive in pairs( locomotives.front_movers ) do
-						SavedTrains.Number = SavedTrains.Number + 1
-						if SavedTrains.Number < 1000 then
-							index_number = Functions.Format3Digit( SavedTrains.Number )
-							SavedTrains.UnitNumbers[index_number] = locomotive.unit_number
-							SavedTrains.BackerNames[index_number] = locomotive.backer_name
-						else
-							player.print( { "Rich.PresetsError1000" } )
-							return
-						end
+						datatable[locomotive.backer_name] = locomotive.unit_number
+
+						table.insert( sorttable, locomotive.backer_name )
 					end
 				end
+			end
+		end
+	end
+
+	if next( sorttable ) then
+		table.sort( sorttable )
+
+		for _, name in pairs( sorttable ) do
+			SavedTrains.Number = SavedTrains.Number + 1
+
+			if SavedTrains.Number < 1000 then
+				index_number = Functions.Format3Digit( SavedTrains.Number )
+
+				SavedTrains.UnitNumbers[index_number] = datatable[name]
+				SavedTrains.BackerNames[index_number] = name
+			else
+				player.print( { "Rich.PresetsError1000" } )
+				
+				return
 			end
 		end
 	end
@@ -677,6 +686,8 @@ end
 Functions.Tab06Update = function( player_id )
 	local player = game.players[player_id]
 	local force = player.force
+	local datatable = {}
+	local sorttable = {}
 	local SavedTrainStops =
 	{
 		Number = 0,
@@ -690,15 +701,28 @@ Functions.Tab06Update = function( player_id )
 	
 		if next( trainstops ) then
 			for _, trainstop in pairs( trainstops ) do
-				SavedTrainStops.Number = SavedTrainStops.Number + 1
-				if SavedTrainStops.Number < 1000 then
-					index_number = Functions.Format3Digit( SavedTrainStops.Number )
-					SavedTrainStops.UnitNumbers[index_number] = trainstop.unit_number
-					SavedTrainStops.BackerNames[index_number] = trainstop.backer_name
-				else
-					player.print( { "Rich.PresetsError1000" } )
-					return
-				end
+				datatable[trainstop.backer_name] = trainstop.unit_number
+
+				table.insert( sorttable, trainstop.backer_name )
+			end
+		end
+	end
+
+	if next( sorttable ) then
+		table.sort( sorttable )
+
+		for _, name in pairs( sorttable ) do
+			SavedTrainStops.Number = SavedTrainStops.Number + 1
+			
+			if SavedTrainStops.Number < 1000 then
+				index_number = Functions.Format3Digit( SavedTrainStops.Number )
+				
+				SavedTrainStops.UnitNumbers[index_number] = datatable[name]
+				SavedTrainStops.BackerNames[index_number] = name
+			else
+				player.print( { "Rich.PresetsError1000" } )
+				
+				return
 			end
 		end
 	end
