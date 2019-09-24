@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version 0.2.0
+Date: 24.09.2019
+  Changes:
+    - When now inserting a Fluid or Item Signal, the Rich Text gets changed to the type
+    - Changed the Font of the Name Labels and Tab Titles
+  Bugfixes:
+    - Fixed that Error Messages came when adding a GPS Preset
+  New:
+    - The open GUI Button has new Features, look Tutorial
+    - When the GUI was opened via Button and something was selected,
+      Set Backer Name will set it to that Entity
+    - Import/Export Tab(Look Tutorial)
+---------------------------------------------------------------------------------------------------
 Version 0.1.2
 Date: 20.09.2019
   New:

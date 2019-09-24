@@ -15,6 +15,7 @@ Functions.Globals = function()
 	global.CurrentHEX = global.CurrentHEX or {}
 	global.CurrentPosition = global.CurrentPosition or {}
 	global.Reset = global.Reset or {}
+	global.SavedEntity = global.SavedEntity or {}
 end
 
 --Player Data
@@ -94,7 +95,7 @@ Functions.MainGUI = function( parent, player_id )
 		["26"] = Functions.AddLabel( A["03"]["12"], "RichLabelAGUI05", { "Rich.Output" }, "description_label" ),
 		["27"] = Functions.AddLabel( A["03"]["12"], "RichLabelAGUI06", global.CurrentRichText[player_id] ),
 
-		["28"] = Functions.AddLabel( A["03"]["13"], "RichLabelAGUI07", { "Rich.Name" } ),
+		["28"] = Functions.AddLabel( A["03"]["13"], "RichLabelAGUI07", { "Rich.Name" }, "description_label" ),
 		["29"] = Functions.AddTextField( A["03"]["13"], "RichTextFieldAGUI02", "" ),
 		["30"] = Functions.AddButton( A["03"]["13"], "RichButtonAGUI05", { "Rich.AddPreset" } ),
 
@@ -102,6 +103,7 @@ Functions.MainGUI = function( parent, player_id )
 		["32"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI06", { "Rich.CreateTag" } ),
 		["33"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI07", { "Rich.SendMessage" } ),
 		["34"] = Functions.AddButton( A["03"]["15"], "RichButtonAGUI08", { "Rich.BackerName" } ),
+		
 		["35"] = Functions.AddButton( A["03"]["16"], "RichButtonAGUI09", { "Rich.SetLine" } ),
 		["36"] = Functions.AddButton( A["03"]["16"], "RichButtonAGUI10", { "Rich.SetNetwork" } )
 	}
@@ -120,7 +122,7 @@ Functions.MainGUI = function( parent, player_id )
 	A["03"]["04"].add_tab( A["04"]["04"], A["04"]["11"] )
 	A["03"]["04"].add_tab( A["04"]["05"], A["04"]["12"] )
 	A["03"]["04"].add_tab( A["04"]["06"], A["04"]["13"] )
-	--A["03"]["04"].add_tab( A["04"]["07"], A["04"]["14"] )
+	A["03"]["04"].add_tab( A["04"]["07"], A["04"]["14"] )
 	A["03"]["05"].style.top_margin = 8
 	A["03"]["12"].style.top_margin = 8
 	A["03"]["12"].style.bottom_margin = 8
@@ -135,6 +137,7 @@ Functions.MainGUI = function( parent, player_id )
 	A["04"]["12"].horizontal_scroll_policy = "never"
 	A["04"]["13"].horizontal_scroll_policy = "never"
 	A["04"]["14"].horizontal_scroll_policy = "never"
+	A["04"]["15"].style.font = "heading-2"
 	A["04"]["16"].style.horizontally_stretchable = true
 	A["04"]["20"].style.width = 400
 	A["04"]["20"].style.single_line = false
@@ -167,6 +170,7 @@ Functions.MainGUI = function( parent, player_id )
 	Functions.Tab04( A["04"]["11"], player_id ) --GPS
 	Functions.Tab05( A["04"]["12"], player_id ) --Trains
 	Functions.Tab06( A["04"]["13"], player_id ) --Train Stops
+	Functions.Tab07( A["04"]["14"], player_id ) --Import/Export
 end
 
 --MainGUI | Toggle visibility of the GUI
@@ -177,6 +181,10 @@ Functions.MainGUIToggle = function( player_id )
 	if screen.RichFrameAGUI01 then
 		local GUI = global.GUIS[player_id].A["01"]
 		GUI.visible = not GUI.visible
+
+		Functions.MainGUIUpdateText( player_id, global.CurrentRichText[player_id] )
+
+		global.SavedEntity[player_id] = {}
 	else
 		Functions.MainGUI( screen, player_id )
 
@@ -248,7 +256,10 @@ Functions.MainGUIUpdateText = function( player_id, text )
 	local GUI = global.GUIS[player_id].A["04"]
 	GUI["24"].text = text
 	GUI["27"].caption = text
-	global.CurrentRichText[player_id] = text
+	
+	if not next( global.SavedEntity[player_id] ) then
+		global.CurrentRichText[player_id] = text
+	end
 end
 
 --Tab01 | Types
@@ -267,6 +278,7 @@ Functions.Tab01 = function( parent, player_id )
 		["01"] = Functions.AddLabel( B["01"]["01"], "RichLabelBGUI01", { "Rich.Tab01Title" }, "caption_label" ),
 		["02"] = Functions.AddWidget( B["01"]["01"], "RichWidgetBGUI01" ),
 		["03"] = Functions.AddDropDown( B["01"]["01"], "RichDropDownBGUI01", Functions.defines.Menus.Tab01.ChooseElemDropDown ),
+		
 		["04"] = Functions.AddButton( B["01"]["04"], "RichButtonBGUI01", { "Rich.AddBefore" } ),
 		["05"] = Functions.AddButton( B["01"]["04"], "RichButtonBGUI02", { "Rich.AddAfter" } )
 	}
@@ -275,6 +287,8 @@ Functions.Tab01 = function( parent, player_id )
 	B["01"]["03"].style.bottom_margin = 8
 	B["01"]["03"].visible = false
 	B["01"]["04"].visible = false
+	
+	B["02"]["01"].style.font = "heading-2"
 	B["02"]["02"].style.horizontally_stretchable = true
 	B["02"]["04"].style.horizontally_stretchable = true
 	B["02"]["05"].style.horizontally_stretchable = true
@@ -321,28 +335,36 @@ Functions.Tab02 = function( parent, player_id )
 		["02"] = Functions.AddWidget( C["01"]["01"], "RichWidgetCGUI01" ),
 		["03"] = Functions.AddDropDown( C["01"]["01"], "RichDropDownCGUI01", Functions.defines.Menus.Tab02.ColorDropDown ),
 		["04"] = Functions.AddLabel( C["01"]["01"], "RichHiddenLabelCGUI01", global.CurrentHEX[player_id] ),
+		
 		["05"] = Functions.AddLabel( C["01"]["03"], "RichLabelCGUI02", "R" ),
 		["06"] = Functions.AddSlider( C["01"]["03"], "RichSliderCGUI01", 0, 255, 0, "red_slider" ),
 		["07"] = Functions.AddTextField( C["01"]["03"], "RichTextFieldCGUI01", "" ),
+		
 		["08"] = Functions.AddLabel( C["01"]["04"], "RichLabelCGUI03", "G" ),
 		["09"] = Functions.AddSlider( C["01"]["04"], "RichSliderCGUI02", 0, 255, 0, "green_slider" ),
 		["10"] = Functions.AddTextField( C["01"]["04"], "RichTextFieldCGUI02", "" ),
+		
 		["11"] = Functions.AddLabel( C["01"]["05"], "RichLabelCGUI04", "B" ),
 		["12"] = Functions.AddSlider( C["01"]["05"], "RichSliderCGUI03", 0, 255, 0, "blue_slider" ),
 		["13"] = Functions.AddTextField( C["01"]["05"], "RichTextFieldCGUI03", "" ),
+		
 		["14"] = Functions.AddTextField( C["01"]["06"], "RichTextFieldCGUI04", "" ),
 		["15"] = Functions.AddWidget( C["01"]["06"], "RichWidgetCGUI02" ),
 		["16"] = Functions.AddLabel( C["01"]["06"], "RichLabelCGUI05", "A" ),
-		["17"] = Functions.AddLabel( C["01"]["07"], "RichLabelCGUI06", { "Rich.Name" } ),
+		
+		["17"] = Functions.AddLabel( C["01"]["07"], "RichLabelCGUI06", { "Rich.Name" }, "description_label" ),
 		["18"] = Functions.AddTextField( C["01"]["07"], "RichTextFieldCGUI05", "" ),
 		["19"] = Functions.AddButton( C["01"]["07"], "RichButtonCGUI01", { "Rich.AddPreset" } ),
+		
 		["20"] = Functions.AddTable( C["01"]["08"], "RichTableCGUI01", 11 ),
+		
 		["21"] = Functions.AddButton( C["01"]["10"], "RichButtonCGUI02", { "Rich.AddBefore" } ),
 		["22"] = Functions.AddButton( C["01"]["10"], "RichButtonCGUI03", { "Rich.AddAfter" } ),
 		["23"] = Functions.AddButton( C["01"]["10"], "RichButtonCGUI04", { "Rich.Applyto" } )
 	}
 	C["03"] = {}
 
+	C["02"]["01"].style.font = "heading-2"
 	C["02"]["02"].style.horizontally_stretchable = true
 	C["02"]["04"].visible = false
 	C["02"]["07"].style.width = 40
@@ -454,11 +476,13 @@ Functions.Tab03 = function( parent, player_id )
 		["01"] = Functions.AddLabel( D["01"]["01"], "RichLabelDGUI01", { "Rich.Tab03Title" }, "caption_label" ),
 		["02"] = Functions.AddWidget( D["01"]["01"], "RichWidgetDGUI01" ),
 		["03"] = Functions.AddDropDown( D["01"]["01"], "RichDropDownDGUI01", Functions.defines.Menus.Tab03.FontDropDown ),
+		
 		["04"] = Functions.AddButton( D["01"]["03"], "RichButtonDGUI01", { "Rich.AddBefore" } ),
 		["05"] = Functions.AddButton( D["01"]["03"], "RichButtonDGUI02", { "Rich.AddAfter" } ),
 		["06"] = Functions.AddButton( D["01"]["03"], "RichButtonDGUI03", { "Rich.Applyto" } )
 	}
 
+	D["02"]["01"].style.font = "heading-2"
 	D["02"]["02"].style.horizontally_stretchable = true
 	D["02"]["04"].style.horizontally_stretchable = true
 	D["02"]["05"].style.horizontally_stretchable = true
@@ -487,16 +511,20 @@ Functions.Tab04 = function( parent, player_id )
 		["02"] = Functions.AddWidget( E["01"]["01"], "RichWidgetEGUI01" ),
 		["03"] = Functions.AddDropDown( E["01"]["01"], "RichDropDownEGUI01", global.SavedGPS[player_id].PositionNames ),
 		["04"] = Functions.AddSpriteButton( E["01"]["01"], "RichSpriteButtonEGUI01", "utility/remove", "richclosebutton" ),
+		
 		["05"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI02", { "Rich.DropdownSelection" }, "description_label" ),
 		["06"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI03", "" ),
 		["07"] = Functions.AddLabel( E["01"]["03"], "RichLabelEGUI04", "" ),
-		["08"] = Functions.AddLabel( E["01"]["05"], "RichLabelEGUI03", { "Rich.Name" } ),
+		
+		["08"] = Functions.AddLabel( E["01"]["05"], "RichLabelEGUI03", { "Rich.Name" }, "description_label" ),
 		["09"] = Functions.AddTextField( E["01"]["05"], "RichTextFieldEGUI01", "" ),
 		["10"] = Functions.AddButton( E["01"]["05"], "RichButtonEGUI01", { "Rich.AddPreset" } ),
+		
 		["11"] = Functions.AddButton( E["01"]["07"], "RichButtonEGUI02", { "Rich.AddBefore" } ),
 		["12"] = Functions.AddButton( E["01"]["07"], "RichButtonEGUI03", { "Rich.AddAfter" } )
 	}
 
+	E["02"]["01"].style.font = "heading-2"
 	E["02"]["02"].style.horizontally_stretchable = true
 	E["02"]["09"].style.width = 110
 	E["02"]["10"].tooltip = { "Rich.CurrentCoords" }
@@ -515,6 +543,7 @@ Functions.Tab04Toggle = function( player_id )
 	GUI["04"].visible = not GUI["04"].visible
 end
 
+--Tab04 | Update Labels
 Functions.Tab04Update = function( player_id, coords )
 	local GUI = global.GUIS[player_id].E["02"]
 
@@ -577,10 +606,12 @@ Functions.Tab05 = function( parent, player_id )
 		["02"] = Functions.AddWidget( F["01"]["01"], "RichWidgetFGUI01" ),
 		["03"] = Functions.AddDropDown( F["01"]["01"], "RichDropDownFGUI01", {} ),
 		["04"] = Functions.AddSpriteButton( F["01"]["01"], "RichSpriteButtonFGUI01", "utility/refresh", "richclosebutton" ),
+		
 		["05"] = Functions.AddButton( F["01"]["03"], "RichButtonFGUI01", { "Rich.AddBefore" } ),
 		["06"] = Functions.AddButton( F["01"]["03"], "RichButtonFGUI02", { "Rich.AddAfter" } )
 	}
 
+	F["02"]["01"].style.font = "heading-2"
 	F["02"]["02"].style.horizontally_stretchable = true
 	F["02"]["05"].style.horizontally_stretchable = true
 	F["02"]["06"].style.horizontally_stretchable = true
@@ -669,10 +700,12 @@ Functions.Tab06 = function( parent, player_id )
 		["02"] = Functions.AddWidget( G["01"]["01"], "RichWidgetGGUI01" ),
 		["03"] = Functions.AddDropDown( G["01"]["01"], "RichDropDownGGUI01", {} ),
 		["04"] = Functions.AddSpriteButton( G["01"]["01"], "RichSpriteButtonGGUI01", "utility/refresh", "richclosebutton" ),
+		
 		["05"] = Functions.AddButton( G["01"]["03"], "RichButtonGGUI01", { "Rich.AddBefore" } ),
 		["06"] = Functions.AddButton( G["01"]["03"], "RichButtonGGUI02", { "Rich.AddAfter" } )
 	}
 
+	G["02"]["01"].style.font = "heading-2"
 	G["02"]["02"].style.horizontally_stretchable = true
 	G["02"]["05"].style.horizontally_stretchable = true
 	G["02"]["06"].style.horizontally_stretchable = true
@@ -731,19 +764,61 @@ Functions.Tab06Update = function( player_id )
 	global.SavedTrainStops[player_id] = SavedTrainStops
 end
 
+--Tab07 | Import/Export
+Functions.Tab07 = function( parent, player_id )
+	local H = {}
+
+	H["01"] =
+	{
+		["01"] = Functions.AddFlow( parent, "RichFlowHGUI01", "horizontal", "richtitlebarflow" ),
+		["02"] = Functions.AddLine( parent, "RichLineHGUI01", "horizontal", "richheadline" ),
+		["03"] = Functions.AddCheckbox( parent, "RichCheckboxHGUI01", { "Rich.RichTemplates" } ),
+		["04"] = Functions.AddCheckbox( parent, "RichCheckboxHGUI02", { "Rich.ColorTemplates" } ),
+		["05"] = Functions.AddCheckbox( parent, "RichCheckboxHGUI03", { "Rich.GPSTemplates" } ),
+		["06"] = Functions.AddFlow( parent, "RichFlowHGUI05", "horizontal", "richcolorflow" ),
+		["07"] = Functions.AddTextBox( parent, "RichTextBoxHGUI01", "", "richtextbox" ),
+		["08"] = Functions.AddLine( parent, "RichLineHGUI02", "horizontal", "richline" ),
+		["09"] = Functions.AddFlow( parent, "RichFlowHGUI06", "horizontal", "richcolorflow" )
+	}
+	H["02"] =
+	{
+		["01"] = Functions.AddLabel( H["01"]["01"], "RichLabelHGUI01", { "Rich.Tab07Title" }, "caption_label" ),
+		
+		["02"] = Functions.AddButton( H["01"]["06"], "RichButtonHGUI01", { "Rich.Generate" } ),
+		
+		["03"] = Functions.AddTextField( H["01"]["09"], "RichTextFieldHGUI01", "", "richtextbox" ),
+		["04"] = Functions.AddButton( H["01"]["09"], "RichButtonHGUI02", { "Rich.Import" } )
+	}
+
+	H["01"]["01"].style.horizontal_align = "center"
+	H["01"]["06"].style.horizontal_align = "right"
+	H["01"]["07"].read_only = true
+	H["01"]["07"].word_wrap = true
+	H["01"]["07"].style.height = 105
+	H["01"]["07"].style.top_margin = 8
+
+	H["02"]["01"].style.font = "heading-2"
+	H["02"]["02"].style.height = 28
+
+	global.GUIS[player_id].H = H
+end
+
 --Player Data creation
 Functions.PlayerStart = function( player_id )
 	local player = game.players[player_id]
 	local button_flow = mod_gui.get_button_flow( player )
+	
 	if not button_flow.RichButton then
 		local b = Functions.AddSpriteButton( button_flow, "RichButton", "utility/rename_icon_normal" )
 	end
+	
 	global.Position[player_id] = global.Position[player_id] or { x = 5, y = 85 * player.display_scale }
 	global.GUIS[player_id] = global.GUIS[player_id] or {}
 	global.CurrentRichText[player_id] = global.CurrentRichText[player_id] or ""
 	global.CurrentHEX[player_id] = global.CurrentHEX[player_id] or "#000000"
 	global.CurrentPosition[player_id] = global.CurrentPosition[player_id] or {}
 	global.Reset[player_id] = global.Reset[player_id] or false
+	global.SavedEntity[player_id] = global.SavedEntity[player_id] or {}
 	global.SavedRichTexts[player_id] = global.SavedRichTexts[player_id] or
 	{
 		Number = 0,
@@ -797,9 +872,59 @@ Functions.HEXtoColor = function( HEX )
 	return { r = tonumber( "0x" .. HEX:sub( 1, 2 ) ), g = tonumber( "0x" .. HEX:sub( 3, 4 ) ), b = tonumber( "0x" .. HEX:sub( 5, 6 ) ) }
 end
 
+--Check of the Import Data is valid
+Functions.CheckTableNumbers = function( Number, Table01, Table01type, Table01check, Table02 )
+	local index_number = ""
+	local table01 = {}
+	local table02 = {}
+
+	if ( type( Number ) ~= "number" or Number < 1 or type( Table01 ) ~= "table" or type( Table02 ) ~= "table" ) then
+		game.print( "Something is wrong" )
+		
+		return false
+	end
+
+	for i = 1, Number do
+		index_number = Functions.Format2Digit( i )
+
+		table01 = Table01[index_number]
+		table02 = Table02[index_number]
+
+		if not ( table01 or table02 ) then
+			return false
+		end
+
+		if type( table01 ) == Table01type then
+			if type( table01 ) == "table" then
+				if table_size( table01 ) == table_size( Table01check ) then
+					for index, _ in pairs ( Table01check ) do
+						if not table01[index] then
+							return false
+						elseif type( table01[index] ) ~= "number" then
+							return false
+						end
+					end
+				end
+			end
+		else
+			return false
+		end
+
+		if type( table02 ) ~= "string" then
+			return false
+		end
+	end
+
+	return true
+end
+
 --GUI Element Functions
 Functions.AddButton = function( parent, name, caption, style )
 	return parent.add{ type = "button", name = name, caption = caption, style = style }
+end
+
+Functions.AddCheckbox = function( parent, name, caption )
+	return parent.add{ type = "checkbox", name = name, caption = caption, state = false }
 end
 
 Functions.AddChooseElemButton = function( parent, name, elem_type )
@@ -848,6 +973,10 @@ end
 
 Functions.AddTable = function( parent, name, column_count )
 	return parent.add{ type = "table", name = name, column_count = column_count }
+end
+
+Functions.AddTextBox = function( parent, name, text, style )
+	return parent.add{ type = "text-box", name = name, text = text, style = style }
 end
 
 Functions.AddTextField = function( parent, name, text, style )
