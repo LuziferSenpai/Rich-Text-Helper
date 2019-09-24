@@ -467,16 +467,11 @@ script.on_event( de.on_gui_click, function( event )
 			elseif name == "RichButtonHGUI02" then
 				local importtable = game.json_to_table( util.decode( GUI["02"]["03"].text ) )
 
-				if type( importtable ) == "table" and next( importtable ) then
-					game.print( "Data is Table" )
-								
+				if type( importtable ) == "table" and next( importtable ) then		
 					if type( importtable["richtext"] ) == "table" then
-						game.print( "Data has Rich Text" )
-						
 						local richtext = importtable["richtext"]
 
 						if Functions.CheckTableNumbers( richtext.Number, richtext.RichTexts, "string", nil, richtext.RichTextNames ) then
-							game.print( "Rich Text is valid" )
 							
 							for index, text in pairs( richtext.RichTexts ) do
 								Functions.MainGUIAddPreset( player_id, "addcurrent", richtext.RichTextNames[index], text )
@@ -485,13 +480,9 @@ script.on_event( de.on_gui_click, function( event )
 					end
 
 					if type( importtable["color"] ) == "table" then
-						game.print( "Data has Colors" )
-						
 						local color = importtable["color"]
 
 						if Functions.CheckTableNumbers( color.Number, color.Colors, "table", { r = 0, g = 0, b = 0 }, color.ColorNames ) then
-							game.print( "Colors are valid" )
-							
 							for index, Color in pairs( color.Colors ) do
 								Functions.Tab02AddPreset( player_id, "addcurrent", color.ColorNames[index], Color )
 							end
@@ -499,13 +490,9 @@ script.on_event( de.on_gui_click, function( event )
 					end
 					
 					if type( importtable["gps"] ) == "table" then
-						game.print( "Data has GPS" )
-						
 						local gps = importtable["gps"]
 
 						if Functions.CheckTableNumbers( gps.Number, gps.Positions, "table", { y = 0, x = 0 }, gps.PositionNames ) then
-							game.print( "GPS is valid" )
-							
 							for index, position in pairs( gps.Positions ) do
 								Functions.Tab04AddPreset( player_id, "addcurrent", gps.PositionNames[index], position )
 							end
@@ -652,8 +639,6 @@ script.on_event( { "RichGUI", "RichBacker" }, function( event )
 				else
 					player.print( { "Rich.NoBackerName" } )
 				end
-			else
-				player.print( { "Rich.NoEntitySelected" } )
 			end
 		end
 	elseif name == "RichBacker" then

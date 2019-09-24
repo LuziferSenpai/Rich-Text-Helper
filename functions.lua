@@ -879,8 +879,6 @@ Functions.CheckTableNumbers = function( Number, Table01, Table01type, Table01che
 	local table02 = {}
 
 	if ( type( Number ) ~= "number" or Number < 1 or type( Table01 ) ~= "table" or type( Table02 ) ~= "table" ) then
-		game.print( "Something is wrong" )
-		
 		return false
 	end
 
