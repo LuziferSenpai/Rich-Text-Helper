@@ -642,11 +642,11 @@ script.on_event( { "RichGUI", "RichBacker" }, function( event )
 			end
 		end
 	elseif name == "RichBacker" then
-		local text = global.GUIS[player_id].A["04"]["24"].text
+		local text = global.CurrentRichText[player_id]
 
 		if text:len() > 0 then
 			local selected = player.selected
-
+	
 			if type( selected ) == "table" then
 				if selected.supports_backer_name() then
 					selected.backer_name = text
