@@ -1,5 +1,3 @@
-pcall( require, "__debugadapter__/debugadapter.lua" )
-
 local handler = require "event_handler"
 
 local script_data =
