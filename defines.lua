@@ -1,10 +1,6 @@
-local defines = {}
+local Defines = {}
 
-defines.Menus = {}
-
-defines.Menus.Tab01 = {}
-
-defines.Menus.Tab01.ChooseElemDropDown =
+Defines.ChooseElemDropDown =
 {
 	["01"] = { "Rich.ChooseElem01" },
 	["02"] = { "Rich.ChooseElem02" },
@@ -17,7 +13,7 @@ defines.Menus.Tab01.ChooseElemDropDown =
 	["09"] = { "Rich.ChooseElem09" }
 }
 
-defines.Menus.Tab01.ChooseElemTypes =
+Defines.ChooseElemTypes =
 {
 	["01"] = "item",
 	["02"] = "entity",
@@ -30,7 +26,7 @@ defines.Menus.Tab01.ChooseElemTypes =
 	["09"] = "achievement"
 }
 
-defines.Menus.Tab01.ChooseElemTypesRich =
+Defines.ChooseElemTypesRich =
 {
 	["01"] = "item",
 	["02"] = "entity",
@@ -43,9 +39,7 @@ defines.Menus.Tab01.ChooseElemTypesRich =
 	["09"] = "achievement"
 }
 
-defines.Menus.Tab02 = {}
-
-defines.Menus.Tab02.ColorDropDown =
+Defines.ColorDropDown =
 {
 	["01"] = { "Rich.default" },
 	["02"] = { "Rich.red" },
@@ -63,7 +57,7 @@ defines.Menus.Tab02.ColorDropDown =
 	["14"] = { "Rich.acid" }	
 }
 
-defines.Menus.Tab02.ColorDropDownRGB =
+Defines.ColorDropDownRGB =
 {
 	["01"] = { r = 255, g = 160, b = 66 },
 	["02"] = { r = 255, g = 42, b = 35 },
@@ -81,51 +75,7 @@ defines.Menus.Tab02.ColorDropDownRGB =
 	["14"] = { r = 180, g = 253, b = 34 }
 }
 
-defines.Menus.Tab02.SlidersRGB =
-{
-	["RichSliderCGUI01"] = true,
-	["RichSliderCGUI02"] = true,
-	["RichSliderCGUI03"] = true
-}
-
-defines.Menus.Tab02.TextfieldsRGB =
-{
-	["RichTextFieldCGUI01"] = true,
-	["RichTextFieldCGUI02"] = true,
-	["RichTextFieldCGUI03"] = true
-}
-
-defines.Menus.Tab03 = {}
-
-defines.Menus.Tab03.FontDropDown =
-{
-	["01"] = "[font=compi]compi[/font]",
-	["02"] = "[font=compilatron-message-font]compilatron-message-font[/font]",
-	["03"] = "[font=count-font]count-font[/font]",
-	["04"] = "[font=default]default[/font]",
-	["05"] = "[font=default-bold]default-bold[/font]",
-	["06"] = "[font=default-dialog-button]default-dialog-button[/font]",
-	["07"] = "[font=default-dropdown]default-dropdown[/font]",
-	["08"] = "[font=default-game]default-game[/font]",
-	["09"] = "[font=default-large]default-large[/font]",
-	["10"] = "[font=default-large-bold]default-large-bold[/font]",
-	["11"] = "[font=default-large-semibold]default-large-semibold[/font]",
-	["12"] = "[font=default-listbox]default-listbox[/font]",
-	["13"] = "[font=default-semibold]default-semibold[/font]",
-	["14"] = "[font=default-small]default-small[/font]",
-	["15"] = "[font=default-small-bold]default-small-bold[/font]",
-	["16"] = "[font=default-small-semibold]default-small-semibold[/font]",
-	["17"] = "[font=default-tiny-bold]default-tiny-bold[/font]",
-	["18"] = "[font=heading-1]heading-1[/font]",
-	["19"] = "[font=heading-2]heading-2[/font]",
-	["20"] = "[font=heading-3]heading-3[/font]",
-	["21"] = "[font=locale-pick]locale-pick[/font]",
-	["22"] = "[font=scenario-message-dialog]scenario-message-dialog[/font]",
-	["23"] = "[font=technology-slot-level-font]technology-slot-level-font[/font]",
-	["24"] = "[font=var]var[/font]"
-}
-
-defines.Menus.Tab03.FontDropDownNames =
+Defines.FontDropDownNames =
 {
 	["01"] = "compi",
 	["02"] = "compilatron-message-font",
@@ -153,5 +103,32 @@ defines.Menus.Tab03.FontDropDownNames =
 	["24"] = "var"
 }
 
+Defines.FontDropDown =
+{
+	["01"] = "[font=compi]compi[/font]",
+	["02"] = "[font=compilatron-message-font]compilatron-message-font[/font]",
+	["03"] = "[font=count-font]count-font[/font]",
+	["04"] = "[font=default]default[/font]",
+	["05"] = "[font=default-bold]default-bold[/font]",
+	["06"] = "[font=default-dialog-button]default-dialog-button[/font]",
+	["07"] = "[font=default-dropdown]default-dropdown[/font]",
+	["08"] = "[font=default-game]default-game[/font]",
+	["09"] = "[font=default-large]default-large[/font]",
+	["10"] = "[font=default-large-bold]default-large-bold[/font]",
+	["11"] = "[font=default-large-semibold]default-large-semibold[/font]",
+	["12"] = "[font=default-listbox]default-listbox[/font]",
+	["13"] = "[font=default-semibold]default-semibold[/font]",
+	["14"] = "[font=default-small]default-small[/font]",
+	["15"] = "[font=default-small-bold]default-small-bold[/font]",
+	["16"] = "[font=default-small-semibold]default-small-semibold[/font]",
+	["17"] = "[font=default-tiny-bold]default-tiny-bold[/font]",
+	["18"] = "[font=heading-1]heading-1[/font]",
+	["19"] = "[font=heading-2]heading-2[/font]",
+	["20"] = "[font=heading-3]heading-3[/font]",
+	["21"] = "[font=locale-pick]locale-pick[/font]",
+	["22"] = "[font=scenario-message-dialog]scenario-message-dialog[/font]",
+	["23"] = "[font=technology-slot-level-font]technology-slot-level-font[/font]",
+	["24"] = "[font=var]var[/font]"
+}
 
-return defines
+return Defines

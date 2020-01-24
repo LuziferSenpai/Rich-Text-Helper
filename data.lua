@@ -74,10 +74,10 @@ s["richtextbox"] =
     horizontally_stretchable = "on"
 }
 
-s["richclosebutton"] =
+s["richtoolbutton"] =
 {
     type = "button_style",
-    parent = "close_button",
+    parent = "tool_button",
     size = 28
 }
 

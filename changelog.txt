@@ -1,17 +1,26 @@
 ---------------------------------------------------------------------------------------------------
-Version 0.2.2
+Version: 0.3.0
+Date: 24.01.2020
+  Changes:
+    - New Code Libary
+    - Update to 0.18
+  New:
+    - Added Icon only Button inside Types Tab
+    - Added Wireless Circuit Network Button
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
 Date: 24.09.2019
   Bugfixes:
     - Fixed a Typo in the en locale
     - Fixed Issue with Hotkey
 ---------------------------------------------------------------------------------------------------
-Version 0.2.1
+Version: 0.2.1
 Date: 24.09.2019
   Changes:
     - Removed Testing game.prints
     - Removed No Entity selected from the Hotkey
 ---------------------------------------------------------------------------------------------------
-Version 0.2.0
+Version: 0.2.0
 Date: 24.09.2019
   Changes:
     - When now inserting a Fluid or Item Signal, the Rich Text gets changed to the type
@@ -24,40 +33,40 @@ Date: 24.09.2019
       Set Backer Name will set it to that Entity
     - Import/Export Tab(Look Tutorial)
 ---------------------------------------------------------------------------------------------------
-Version 0.1.2
+Version: 0.1.2
 Date: 20.09.2019
   New:
     - Trains & Train Stop Tab Dropdown, are now sorted
 ---------------------------------------------------------------------------------------------------
-Version 0.1.1
+Version: 0.1.1
 Date: 19.09.2019
   Bugfixes:
     - Fixed a Bug with typing in another GUI
 ---------------------------------------------------------------------------------------------------
-Version 0.1.0
+Version: 0.1.0
 Date: 18.09.2019
   New:
     - Works now with Simple Circuit Trains
     - Simple Circuit Trains Line Name can be set inside this Modification
     - Little Code Cleanup
 ---------------------------------------------------------------------------------------------------
-Version 0.0.4
+Version: 0.0.4
 Date: 14.09.2019
   Bugfixes:
     - Fixed a Bug when updating from 0.0.2 to 0.0.3
 ---------------------------------------------------------------------------------------------------
-Version 0.0.3
+Version: 0.0.3
 Date: 14.09.2019
   Changes:
     - Changed the GPS TAB
     - Changes the Rich Text Editor
 ---------------------------------------------------------------------------------------------------
-Version 0.0.2
+Version: 0.0.2
 Date: 12.09.2019
   Bugfixes:
     - Fixed a Copy/Paste Error
 ---------------------------------------------------------------------------------------------------
-Version 0.0.1
+Version: 0.0.1
 Date: 12.09.2019
   Features:
     - Massiv GUI

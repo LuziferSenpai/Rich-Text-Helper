@@ -1,35 +1,49 @@
-require "mod-gui"
-require "util"
+pcall( require, "__debugadapter__/debugadapter.lua" )
 
-local Functions = require "functions"
-local de = defines.events
-local definesmouse = defines.mouse_button_type
+local handler = require "event_handler"
 
-script.on_init( function()
-	Functions.Globals()
-	Functions.Players()
-end )
+local script_data =
+{
+	CurrentHEX = {},
+	CurrentPosition = {},
+	CurrentRichText = {},
+	GUIS = {},
+	Position = {},
+	Reset = {},
+	SavedColors = {},
+	SavedEntity = {},
+	SavedGPS = {},
+	SavedRichTexts = {},
+	SavedTrains = {},
+	SavedTrainStops = {}
+}
 
-script.on_configuration_changed( function( event )
-	local changes = event.mod_changes or {}
+script_data.UpdateText = function( player_id, text )
+	local gui = script_data.GUIS[player_id].B["03"]
 
-	local circuitchchanges = changes["Simple_Circuit_Trains"] or {}
+	gui["10"].text = text
+	gui["13"].caption = text
 
-	if next( circuitchchanges ) then
-		local visible = false
-		if circuitchchanges.new_version then
-			visible = true
-		end
-		for _, p in pairs( game.players ) do
-			if next( global.GUIS[p.index] ) then
-				global.GUIS[p.index].A["04"]["35"].visible = visible
-			end
-		end
+	if not next( script_data.SavedEntity[player_id] ) then
+		script_data.CurrentRichText[player_id] = text
 	end
+end
 
+local lib = {}
+
+lib.on_init = function()
+	global.script_data = global.script_data or script_data
+end
+
+lib.on_load = function()
+	script_data = global.script_data or script_data
+end
+
+lib.on_configuration_changed = function( event )
+	local changes = event.mod_changes or {}
+	
 	if next( changes ) then
-		Functions.Globals()
-		Functions.Players()
+		global.script_data = global.script_data or script_data
 
 		local richchanges = changes["Rich_Text_Helper"] or {}
 
@@ -38,7 +52,6 @@ script.on_configuration_changed( function( event )
 
 			if oldversion and richchanges.new_version then
 				if oldversion <= "0.0.2" then
-
 					for _, p in pairs( game.players ) do
 						local player_id = p.index
 
@@ -81,583 +94,59 @@ script.on_configuration_changed( function( event )
 						end
 					end
 				end
+
+				if oldversion <= "0.3.0" then
+					script_data.CurrentHEX = global.CurrentHEX
+					script_data.CurrentPosition = global.CurrentPosition
+					script_data.CurrentRichText = global.CurrentRichText
+					script_data.GUIS = global.GUIS
+					script_data.Position = global.Position
+					script_data.Reset = global.Reset
+					script_data.SavedColors = global.SavedColors
+					script_data.SavedEntity = global.SavedEntity
+					script_data.SavedGPS = global.SavedGPS
+					script_data.SavedRichTexts = global.SavedRichTexts
+					script_data.SavedTrains = global.SavedTrains
+					script_data.SavedTrainStops = global.SavedTrainStops
+
+					global.CurrentHEX = nil
+					global.CurrentPosition = nil
+					global.CurrentRichText = nil
+					global.GUIS = nil
+					global.Position = nil
+					global.Reset = nil
+					global.SavedColors = nil
+					global.SavedEntity = nil
+					global.SavedGPS = nil
+					global.SavedRichTexts = nil
+					global.SavedTrains = nil
+					global.SavedTrainStops = nil
+
+					for _, p in pairs( game.players ) do
+						if next( script_data.GUIS[p.index] ) then
+							script_data.GUIS[p.index].A["01"].destroy()
+							script_data.GUIS[p.index] = {}
+							script_data.Reset[p.index] = true
+						end
+					end
+				end
 			end
 		end
 	end
-end )
-
-script.on_event( de.on_gui_click, function( event )
-	local element = event.element
-	local name = element.name
-	local guitype = element.type
-
-	if name == nil then return end
-
-	if not ( guitype == "button" or guitype == "sprite-button" ) then return end
-
-	if not name:find( "Rich" ) then return end 
-
-	local player_id = event.player_index
-
-	if name == "RichButton" then
-		Functions.MainGUIToggle( player_id )
-	elseif next( global.GUIS[player_id] ) then
-		local GUI = global.GUIS[player_id]
-
-		if not GUI.A["01"].visible then return end
-
-		local player = game.players[player_id]
-		local TEXT = GUI.A["04"]["24"].text
-		local button = event.button
-
-		--A
-		if name:find( "AGUI" ) then
-			local TEXTLEN = TEXT:len()
-			GUI = GUI.A
-
-			if name == "RichButtonAGUI01" then
-				if GUI["03"]["07"].visible then
-					Functions.MainGUIUpdateText( player_id, GUI["04"]["20"].caption  .. TEXT )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichButtonAGUI02" then
-				if GUI["03"]["07"].visible then
-					Functions.MainGUIUpdateText( player_id, TEXT .. GUI["04"]["20"].caption )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichButtonAGUI03" then
-				if GUI["03"]["07"].visible then
-					Functions.MainGUIUpdateText( player_id, GUI["04"]["20"].caption )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichButtonAGUI04" then
-				Functions.MainGUIUpdateText( player_id, "" )
-			elseif name == "RichButtonAGUI05" then
-				if TEXTLEN > 0 then
-					Functions.MainGUIAddPreset( player_id )
-				else
-					player.print( { "Rich.NoRichText" } )
-				end
-			elseif name == "RichButtonAGUI06" then
-				if TEXTLEN > 0 then
-					GUI = GUI["04"]
-
-					local elem_value = GUI["31"].elem_value
-					local tag =
-					{
-						position = player.position,
-						text = TEXT,
-						last_user = player
-					}
-
-					if type( elem_value ) == "table" then
-						tag.icon = elem_value
-					end
-
-					local currentposi = global.CurrentPosition[player_id]
-
-					if next( currentposi ) and button == defines.mouse_button_type.right then
-						tag.position = currentposi
-					end
-
-					player.force.add_chart_tag( player.surface, tag )
-				else
-					player.print( { "Rich.NoRichText" } )
-				end
-			elseif name == "RichButtonAGUI07" then
-				if TEXTLEN > 0 then
-					local chat_color = player.chat_color
-
-					game.print( "[color=" .. chat_color.r .. "," .. chat_color.g .. "," .. chat_color.b .. "]" .. player.name .. ": " .. TEXT .. "[/color]" )
-				else
-					player.print( { "Rich.NoRichText" } )
-				end
-			elseif name == "RichButtonAGUI08" then
-				if TEXTLEN > 0 then
-					local entity = global.SavedEntity[player_id]
-
-					if next( entity ) then
-						entity.backer_name = TEXT
-					elseif player.opened_gui_type == defines.gui_type.entity then
-						entity = player.opened
-
-						if entity.supports_backer_name() then
-							entity.backer_name = TEXT
-						else
-							player.print( { "Rich.NoBackerName" } )
-						end
-					else
-						player.print( { "Rich.NoEntityOpen" } )
-					end
-				else
-					player.print( { "Rich.NoRichText" } )
-				end
-			elseif name == "RichButtonAGUI09" then
-				if TEXTLEN > 0 then
-					local boolean = remote.call( "LineName", "Change", player_id, TEXT )
-
-					if boolean then
-						player.print( { "Rich.CircuitNotOpen" } )
-					end
-				else
-					player.print( { "Rich.NoRichText" } )
-				end
-			elseif name == "RichSpriteButtonAGUI01" then
-				GUI["01"].visible = false
-			elseif name == "RichSpriteButtonAGUI02" then
-				GUI = GUI["04"]
-
-				local selected_index = GUI["17"].selected_index
-
-				if selected_index > 0 then
-					local index_number = Functions.Format2Digit( selected_index )
-					local SavedRichTexts = global.SavedRichTexts[player_id]
-					SavedRichTexts.RichTexts[index_number] = nil
-					SavedRichTexts.RichTextNames[index_number] = nil
-
-					global.SavedRichTexts[player_id] =
-					{
-						Number = 0,
-						RichTexts = {},
-						RichTextNames = {}
-					}
-
-					local Texts = SavedRichTexts.RichTexts
-
-					if next( Texts ) then
-						for entry, text in pairs( Texts ) do
-							Functions.MainGUIAddPreset( player_id, "addcurrent", SavedRichTexts.RichTextNames[entry], text )
-						end
-
-						GUI = global.GUIS[player_id].A["04"]
-						selected_index = GUI["17"].selected_index
-						
-						if selected_index == 0 then
-							GUI["20"].caption = ""
-
-							Functions.MainGUIDropDownToggle( player_id )
-						else
-							GUI["20"].caption = global.SavedRichTexts[player_id].RichTexts[Functions.Format2Digit( selected_index )]
-						end
-					else
-						GUI["17"].items = {}
-						GUI["20"].caption = ""
-
-						Functions.MainGUIDropDownToggle( player_id )
-					end
-				else
-					player.print( { "Rich.NothingSelected" } )
-				end
-			end
-		elseif name:find( "BGUI" ) then
-			local elem_value = GUI.B["03"].elem_value
-			if type( elem_value ) ~= "nil" then
-				local index = GUI.B["02"]["03"].selected_index
-				
-				if type( elem_value ) == "table" then
-					local elemtype = elem_value.type
-					
-					if elemtype == "virtual" then
-						index = 8
-					elseif elemtype == "fluid" then
-						index = 6
-					elseif elemtype == "item" then
-						index = 1
-					end
-
-					elem_value = elem_value.name
-				end
-
-				local richtext = "[" .. Functions.defines.Menus.Tab01.ChooseElemTypesRich[Functions.Format2Digit( index )] .. "=" .. elem_value .. "]"
-
-				if name == "RichButtonBGUI01" then
-					Functions.MainGUIUpdateText( player_id, richtext .. TEXT )
-				elseif name == "RichButtonBGUI02" then
-					Functions.MainGUIUpdateText( player_id, TEXT .. richtext )
-				end
-			else
-				player.print( { "Rich.NoChooseElem" } )
-			end
-		elseif name:find( "CGUI" ) then
-			local color = Functions.HEXtoColor( GUI.C["02"]["04"].caption )
-			local color_string = "[color=" .. color.r .. "," .. color.g .. "," .. color.b .."]"
-
-			if name == "RichButtonCGUI01" then
-				Functions.Tab02AddPreset( player_id )
-			elseif name == "RichButtonCGUI02" then
-				Functions.MainGUIUpdateText( player_id, color_string .. "[/color]" .. TEXT )
-			elseif name == "RichButtonCGUI03" then
-				Functions.MainGUIUpdateText( player_id,TEXT ..  color_string .. "[/color]" )
-			elseif name == "RichButtonCGUI04" then
-				Functions.MainGUIUpdateText( player_id, color_string .. TEXT .. "[/color]" )
-			elseif name:find( "RichPresetButtonCGUI" ) then
-				local index_number = name:gsub( "RichPresetButtonCGUI", "" )
-
-				if button == definesmouse.left then
-					Functions.Tab02ColorUpdate( player_id, "preset", index_number )
-				elseif button == definesmouse.right then
-					GUI.C["02"]["20"].clear()
-
-					local SavedColors = global.SavedColors[player_id]
-					SavedColors.Colors[index_number] = nil
-					SavedColors.ColorNames[index_number] = nil
-
-					global.SavedColors[player_id] =
-					{
-						Number = 0,
-						Colors = {},
-						ColorNames = {}
-					}
-
-					local Colors = SavedColors.Colors
-
-					if next( Colors ) then
-						for entry, color in pairs( Colors ) do
-							Functions.Tab02AddPreset( player_id, "addcurrent", SavedColors.ColorNames[entry], color )
-						end
-					end
-				else
-					player.print( { "Rich.WrongButton" } )
-				end
-			end
-		elseif name:find( "DGUI" ) then
-			local selected_index = GUI.D["02"]["03"].selected_index
-
-			if selected_index > 0 then
-				local richtext = "[font=" .. Functions.defines.Menus.Tab03.FontDropDownNames[Functions.Format2Digit( selected_index )] .. "]"
-
-				if name == "RichButtonDGUI01" then
-					Functions.MainGUIUpdateText( player_id, richtext .. "[/font]" .. TEXT )
-				elseif name == "RichButtonDGUI02" then
-					Functions.MainGUIUpdateText( player_id, TEXT .. richtext .. "[/font]" )
-				elseif name == "RichButtonDGUI03" then
-					Functions.MainGUIUpdateText( player_id, richtext .. TEXT .. "[/font]" )
-				end
-			else
-				player.print( { "Rich.CantAdd" } )
-			end
-		elseif name:find( "EGUI" ) then
-			GUI = GUI.E
-			
-			local position = player.position
-
-			if name == "RichButtonEGUI01" then
-				Functions.Tab04AddPreset( player_id )
-			elseif name == "RichButtonEGUI02" then
-				if button == definesmouse.left then
-					if GUI["01"]["03"].visible then
-						position = global.CurrentPosition[player_id]
-					else
-						player.print( { "Rich.CantAdd" } )
-					end
-				end
-				
-				Functions.MainGUIUpdateText( player_id, "[gps=" .. position.x .. "," .. position.y .. "]" .. TEXT )
-			elseif name == "RichButtonEGUI03" then
-				if button == definesmouse.left then
-					if GUI["01"]["03"].visible then
-						position = global.CurrentPosition[player_id]
-					else
-						player.print( { "Rich.CantAdd" } )
-					end
-				end
-
-				Functions.MainGUIUpdateText( player_id, TEXT .. "[gps=" .. position.x .. "," .. position.y .. "]" )
-			elseif name == "RichSpriteButtonEGUI01" then
-				GUI = GUI["02"]["03"]
-
-				local selected_index = GUI.selected_index
-
-				if selected_index > 0 then
-					local index_number = Functions.Format2Digit( selected_index )
-					local SavedGPS = global.SavedGPS[player_id]
-					SavedGPS.Positions[index_number] = nil
-					SavedGPS.PositionNames[index_number] = nil
-					
-					global.SavedGPS[player_id] =
-					{
-						Number = 0,
-						Positions = {},
-						PositionNames = {}
-					}
-
-					local Coordinates = SavedGPS.Positions
-
-					if next( Coordinates ) then
-						for entry, coords in pairs( Coordinates ) do
-							Functions.Tab04AddPreset( player_id, "addcurrent", SavedGPS.PositionNames[entry], coords )
-						end
-
-						if global.GUIS[player_id].E["02"]["03"].selected_index == 0 then
-							Functions.Tab04Update( player_id, {} )
-							Functions.Tab04Toggle( player_id )
-						else
-							Functions.Tab04Update( player_id, global.SavedGPS[player_id].Positions[Functions.Format2Digit( selected_index )] )
-						end
-					else
-						GUI.items = {}
-
-						Functions.Tab04Update( player_id, {} )
-						Functions.Tab04Toggle( player_id )
-					end
-				else
-					player.print( { "Rich.NothingSelected" } )
-				end
-			end
-		elseif name:find( "FGUI" ) then
-			local selected_index = GUI.F["02"]["03"].selected_index
-
-			if name == "RichButtonFGUI01" then
-				if selected_index > 0 then
-					Functions.MainGUIUpdateText( player_id, "[train=" .. global.SavedTrains[player_id].UnitNumbers[Functions.Format3Digit( selected_index )] .. "]" .. TEXT )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichButtonFGUI02" then
-				if selected_index > 0 then
-					Functions.MainGUIUpdateText( player_id, TEXT .. "[train=" .. global.SavedTrains[player_id].UnitNumbers[Functions.Format3Digit( selected_index )] .. "]" )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichSpriteButtonFGUI01" then
-				Functions.Tab05Update( player_id )
-			end
-		elseif name:find( "GGUI" ) then
-			local selected_index = GUI.G["02"]["03"].selected_index
-
-			if name == "RichButtonGGUI01" then
-				if selected_index > 0 then
-					Functions.MainGUIUpdateText( player_id, "[train-stop=" .. global.SavedTrainStops[player_id].UnitNumbers[Functions.Format3Digit( selected_index )] .. "]" .. TEXT )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichButtonGGUI02" then
-				if selected_index > 0 then
-					Functions.MainGUIUpdateText( player_id, TEXT .. "[train-stop=" .. global.SavedTrainStops[player_id].UnitNumbers[Functions.Format3Digit( selected_index )] .. "]" )
-				else
-					player.print( { "Rich.CantAdd" } )
-				end
-			elseif name == "RichSpriteButtonGGUI01" then
-				Functions.Tab06Update( player_id )
-			end
-		elseif name:find( "HGUI" ) then
-			GUI = GUI.H
-
-			if name == "RichButtonHGUI01" then
-				local exporttable = {}
-
-				if GUI["01"]["03"].state and global.SavedRichTexts[player_id].Number > 0 then
-					exporttable["richtext"] = global.SavedRichTexts[player_id]
-				end
-
-				if GUI["01"]["04"].state and global.SavedColors[player_id].Number > 0 then
-					exporttable["color"] = global.SavedColors[player_id]
-				end
-
-				if GUI["01"]["05"].state and global.SavedGPS[player_id].Number > 0 then
-					exporttable["gps"] = global.SavedGPS[player_id]
-				end
-
-				if next( exporttable ) then
-					GUI["01"]["07"].text = util.encode( game.table_to_json( exporttable ) )
-				end
-			elseif name == "RichButtonHGUI02" then
-				local importtable = game.json_to_table( util.decode( GUI["02"]["03"].text ) )
-
-				if type( importtable ) == "table" and next( importtable ) then		
-					if type( importtable["richtext"] ) == "table" then
-						local richtext = importtable["richtext"]
-
-						if Functions.CheckTableNumbers( richtext.Number, richtext.RichTexts, "string", nil, richtext.RichTextNames ) then
-							
-							for index, text in pairs( richtext.RichTexts ) do
-								Functions.MainGUIAddPreset( player_id, "addcurrent", richtext.RichTextNames[index], text )
-							end
-						end
-					end
-
-					if type( importtable["color"] ) == "table" then
-						local color = importtable["color"]
-
-						if Functions.CheckTableNumbers( color.Number, color.Colors, "table", { r = 0, g = 0, b = 0 }, color.ColorNames ) then
-							for index, Color in pairs( color.Colors ) do
-								Functions.Tab02AddPreset( player_id, "addcurrent", color.ColorNames[index], Color )
-							end
-						end
-					end
-					
-					if type( importtable["gps"] ) == "table" then
-						local gps = importtable["gps"]
-
-						if Functions.CheckTableNumbers( gps.Number, gps.Positions, "table", { y = 0, x = 0 }, gps.PositionNames ) then
-							for index, position in pairs( gps.Positions ) do
-								Functions.Tab04AddPreset( player_id, "addcurrent", gps.PositionNames[index], position )
-							end
-						end
-					end
-				end
-
-				GUI["02"]["03"].text = ""
-			end
-		end
-	end
-end )
-
-script.on_event( { de.on_gui_confirmed, de.on_gui_selection_state_changed, de.on_gui_value_changed }, function( event )
-	local player_id = event.player_index
-
-	if next( global.GUIS[player_id] ) then
-		local GUI = global.GUIS[player_id]
-
-		if not GUI.A["01"].visible then return end
-
-		local element = event.element
-		local name = element.name
-
-		if name == nil then return end
-
-		if not name:find( "Rich" ) then return end
-
-
-		--C
-		if Functions.defines.Menus.Tab02.TextfieldsRGB[name] then
-			local text = element.text
-
-			if tonumber( text ) > 255 then element.text = "255" end
-
-			Functions.Tab02ColorUpdate( player_id, "rgb" )
-		elseif name == "RichTextFieldCGUI04" then
-			local text = element.text
-
-			if text:sub( 1, 1 ) == "#" and text:len() == 7 then
-				for i = 2, 7 do
-					if not text:sub( i, i ):find( "%x" ) then
-						Functions.Tab02ColorUpdate( player_id, "" )
-						return
-					end
-				end
-
-				Functions.Tab02ColorUpdate( player_id, "hex" )
-			else
-				Functions.Tab02ColorUpdate( player_id, "" )
-			end
-
-		--A
-		elseif name == "RichDropDownAGUI01" then
-			GUI = GUI.A
-			GUI["04"]["20"].caption = global.SavedRichTexts[player_id].RichTexts[Functions.Format2Digit( element.selected_index )]
-
-			if not GUI["03"]["07"].visible then
-				Functions.MainGUIDropDownToggle( player_id )
-			end		
-		--B
-		elseif name == "RichDropDownBGUI01" then
-			Functions.Tab01ChooseElemChange( player_id, element.selected_index )
-		
-		--C
-		elseif name == "RichDropDownCGUI01" then
-			Functions.Tab02ColorUpdate( player_id, "drop-down" )
-
-		--E
-		elseif name == "RichDropDownEGUI01" then
-			GUI = GUI.E
-
-			if not GUI["01"]["03"].visible then
-				Functions.Tab04Toggle( player_id )
-			end
-
-			Functions.Tab04Update( player_id, global.SavedGPS[player_id].Positions[Functions.Format2Digit( element.selected_index )] )
-
-
-
-		--C
-		elseif Functions.defines.Menus.Tab02.SlidersRGB[name] then
-			Functions.Tab02ColorUpdate( player_id, "slider" )
-		end
-	end
-end )
-
-script.on_event( de.on_gui_text_changed, function( event )
-	local player_id = event.player_index
-
-	if next( global.GUIS[player_id] ) then
-		local GUI = global.GUIS[player_id].A
-
-		if not GUI["01"].visible then return end
-
-		local element = event.element
-		local name = element.name
-
-		if name == nil then return end
-
-		if name == "RichTextFieldAGUI01" then
-			local text = element.text
-			GUI["04"]["27"].caption = text
-
-			if not next( global.SavedEntity[player_id] ) then
-				global.CurrentRichText[player_id] = text
-			end
-		end
-	end
-end )
-
-script.on_event( de.on_gui_location_changed, function( event )
-	local player_id = event.player_index
-
-	if next( global.GUIS[player_id] ) then
-		local element = event.element
-
-		if element.name == "RichFrameAGUI01" then
-			global.Position[player_id] = element.location
-		end
-	end
-end )
-
-script.on_event( de.on_player_created, function( event )
-	Functions.PlayerStart( event.player_index )
-end )
-
-script.on_event( { "RichGUI", "RichBacker" }, function( event )
-	local player_id = event.player_index
-	local player = game.players[player_id]
-	local name = event.input_name
-
-	if name == "RichGUI" then
-		Functions.MainGUIToggle( player_id )
-
-		if global.GUIS[player_id].A["01"].visible then
-			local selected = player.selected
-
-			if type( selected ) == "table" then
-				if selected.supports_backer_name() then
-					global.SavedEntity[player_id] = selected
-
-					Functions.MainGUIUpdateText( player_id, selected.backer_name )
-				else
-					player.print( { "Rich.NoBackerName" } )
-				end
-			end
-		end
-	elseif name == "RichBacker" then
-		local text = global.CurrentRichText[player_id]
-
-		if text:len() > 0 then
-			local selected = player.selected
-	
-			if type( selected ) == "table" then
-				if selected.supports_backer_name() then
-					selected.backer_name = text
-				else
-					player.print( { "Rich.NoBackerName" } )
-				end
-			else
-				player.print( { "Rich.NoEntitySelected" } )
-			end
-		else
-			player.print( { "Rich.NoRichText" } )
-		end
-	end
-end )
+end
+
+local libs =
+{
+	["01"] = lib,
+	["02"] = require "scripts/Main",
+	["03"] = require "scripts/Rich Text",
+	["04"] = require "scripts/Types",
+	["05"] = require "scripts/Colors",
+	["06"] = require "scripts/Fonts",
+	["07"] = require "scripts/GPS",
+	["08"] = require "scripts/Trains",
+	["09"] = require "scripts/Train Stops",
+	["10"] = require "scripts/Settings"
+}
+
+handler.add_libraries( libs )
