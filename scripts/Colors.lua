@@ -23,7 +23,7 @@ local AddPreset = function( player_id, adding_type, tooltip01, color01 )
     if SavedColors.Number < 100 then
         local index_number = Format( "%02d", SavedColors.Number )
         local color = HEXtoColor( script_data.CurrentHEX[player_id] )
-        local tooltip = gui["02"]["17"]
+        local tooltip = gui["02"]["17"].text
 
         gui["02"]["17"].text = ""
         gui["03"][index_number] = GUI( gui["02"]["19"], "RichPresetButtonDGUI" .. index_number, "B", "richpresetbutton" )
