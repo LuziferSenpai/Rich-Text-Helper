@@ -359,6 +359,8 @@ GUI.Tab03 = function( parent )
 	E["02"]["04"].style.horizontally_stretchable = true
 	E["02"]["05"].style.horizontally_stretchable = true
 	E["02"]["06"].style.horizontally_stretchable = true
+
+	return E
 end
 
 GUI.Tab04 = function( parent )

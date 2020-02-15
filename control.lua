@@ -1,3 +1,5 @@
+if script.active_mods["debugadapter"] then require('__debugadapter__/debugadapter.lua') end
+
 local handler = require "event_handler"
 
 local script_data =

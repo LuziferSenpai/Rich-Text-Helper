@@ -176,7 +176,7 @@ local on_player_removed = function( event )
 	script_data.SavedGPS[player_id] = nil
 	script_data.SavedRichTexts[player_id] = nil
 	script_data.SavedTrains[player_id] = nil
-	script_data.SavedTrainStop[player_id] = nil
+	script_data.SavedTrainStops[player_id] = nil
 end
 
 local on_runtime_mod_setting_changed = function( event )
