@@ -1,5 +1,8 @@
 require "util"
 
+local RichTextAddPreset = require "scripts/Shared Functions".RichTextAddPreset
+local ColorAddPreset = require "scripts/Shared Functions".ColorAddPreset
+local GPSAddPreset = require "scripts/Shared Functions".GPSAddPreset
 local de = defines.events
 local Format = string.format
 local script_data = {}
@@ -84,7 +87,7 @@ local Click =
 
                 if Check( richtext.Number, richtext.RichTexts, "string", nil, richtext.RichTextNames ) then
                     for index, text in pairs( richtext.RichTexts ) do
-                        script_data.RichTextAddPreset( player_id, "addcurrent", richtext.RichTextNames[index], text )
+                        RichTextAddPreset( player_id, "addcurrent", richtext.RichTextNames[index], text )
                     end
                 end
             end
@@ -94,7 +97,7 @@ local Click =
 
                 if Check( color.Number, color.Colors, "table", { r = 0, g = 0, b = 0 }, color.ColorNames ) then
                     for index, Color in pairs( color.Colors ) do
-                        script_data.ColorAddPreset( player_id, "addcurrent", color.ColorNames[index], Color )
+                        ColorAddPreset( player_id, "addcurrent", color.ColorNames[index], Color )
                     end
                 end
             end
@@ -105,7 +108,7 @@ local Click =
                 if Check( gps.Number, gps.Positions, "table", { y = 0, x = 0 }, gps.PositionNames ) then
                     game.print( "test" )
                     for index, position in pairs( gps.Positions ) do
-                        script_data.GPSAddPreset( player_id, "addcurrent", gps.PositionNames[index], position )
+                        GPSAddPreset( player_id, "addcurrent", gps.PositionNames[index], position )
                     end
                 end
             end

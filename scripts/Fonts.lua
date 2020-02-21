@@ -1,4 +1,5 @@
 local Defines = require "defines"
+local UpdateText = require "scripts/Shared Functions".UpdateText
 local de = defines.events
 local Format = string.format
 local script_data = {}
@@ -21,24 +22,24 @@ local Click =
         local player_id = event.player_index
         local richtext = richtextreturn( player_id )
 
-        if richtextreturn ~= "" then
-            script_data.UpdateText( player_id, richtext .. "[/font]" .. script_data.GUIS[player_id].B["03"]["10"].text )
+        if richtext:len() > 0 then
+            UpdateText( player_id, richtext .. "[/font]" .. script_data.GUIS[player_id].B["03"]["10"].text )
         end
     end,
     ["RichButtonEGUI02"] = function( event )
         local player_id = event.player_index
         local richtext = richtextreturn( player_id )
 
-        if richtextreturn ~= "" then
-            script_data.UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. richtext .. "[/font]" )
+        if richtext:len() > 0 then
+            UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. richtext .. "[/font]" )
         end
     end,
     ["RichButtonEGUI03"] = function( event )
         local player_id = event.player_index
         local richtext = richtextreturn( player_id )
 
-        if richtextreturn ~= "" then
-            script_data.UpdateText( player_id, richtext .. script_data.GUIS[player_id].B["03"]["10"].text .. "[/font]" )
+        if richtext:len() > 0 then
+            UpdateText( player_id, richtext .. script_data.GUIS[player_id].B["03"]["10"].text .. "[/font]" )
         end
     end
 }

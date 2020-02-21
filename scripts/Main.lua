@@ -1,6 +1,11 @@
 require "mod-gui"
 
-local GUI = require "GUI"
+local GUI = require "scripts/GUI"
+local UpdateText = require "scripts/Shared Functions".UpdateText
+local ColorAddPreset = require "scripts/Shared Functions".ColorAddPreset
+local ColorUpdate = require "scripts/Shared Functions".ColorUpdate
+local TrainUpdate = require "scripts/Shared Functions".TrainUpdate
+local TrainStopUpdate = require "scripts/Shared Functions".TrainStopUpdate
 local de = defines.events
 local mod_button_flow = mod_gui.get_button_flow
 local script_data = {}
@@ -32,7 +37,7 @@ local MainGUIToggle = function( player_id )
 
 		script_data.GUIS[player_id].D = GUI.Tab02( gui["04"]["09"] )
 
-		script_data.ColorUpdate( player_id, "" )
+		ColorUpdate( player_id, "" )
 
 		script_data.GUIS[player_id].E = GUI.Tab03( gui["04"]["10"] )
 
@@ -44,11 +49,11 @@ local MainGUIToggle = function( player_id )
 
 		script_data.GUIS[player_id].G = GUI.Tab05( gui["04"]["12"] )
 
-		script_data.TrainUpdate( player_id )
+		TrainUpdate( player_id )
 
 		script_data.GUIS[player_id].H = GUI.Tab06( gui["04"]["13"] )
 
-		script_data.TrainStopUpdate( player_id )
+		TrainStopUpdate( player_id )
 
 		script_data.GUIS[player_id].I = GUI.Tab07( gui["04"]["14"] )
 
@@ -68,7 +73,7 @@ local MainGUIToggle = function( player_id )
 
 			if next( Colors ) then
 				for entry, color in pairs( Colors ) do
-					script_data.ColorAddPreset( player_id, "addcurrent", SavedColors.ColorNames[entry], color )
+					ColorAddPreset( player_id, "addcurrent", SavedColors.ColorNames[entry], color )
 				end
 			end
 		end
@@ -212,7 +217,7 @@ lib.events =
 				if selected.supports_backer_name() then
 					script_data.SavedEntity[player_id] = selected
 
-					script_data.UpdateText( player_id, selected.backer_name )
+					UpdateText( player_id, selected.backer_name )
 				else
 					player.print( { "Rich.NoBackerName" } )
 				end

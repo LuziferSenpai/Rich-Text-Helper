@@ -18,17 +18,6 @@ local script_data =
 	SavedTrainStops = {}
 }
 
-script_data.UpdateText = function( player_id, text )
-	local gui = script_data.GUIS[player_id].B["03"]
-
-	gui["10"].text = text
-	gui["13"].caption = text
-
-	if not next( script_data.SavedEntity[player_id] ) then
-		script_data.CurrentRichText[player_id] = text
-	end
-end
-
 local lib = {}
 
 lib.on_init = function()
@@ -41,7 +30,7 @@ end
 
 lib.on_configuration_changed = function( event )
 	local changes = event.mod_changes or {}
-	
+
 	if next( changes ) then
 		global.script_data = global.script_data or script_data
 
@@ -146,7 +135,8 @@ local libs =
 	["07"] = require "scripts/GPS",
 	["08"] = require "scripts/Trains",
 	["09"] = require "scripts/Train Stops",
-	["10"] = require "scripts/Settings"
+	["10"] = require "scripts/Settings",
+	["11"] = require "scripts/Shared Functions".lib
 }
 
 handler.add_libraries( libs )

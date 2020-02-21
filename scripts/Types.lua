@@ -1,5 +1,6 @@
-local GUI = require( "GUI" ).AddChooseElemButton
 local Defines = require "defines"
+local GUI = require "scripts/GUI".AddChooseElemButton
+local UpdateText = require "scripts/Shared Functions".UpdateText
 local de = defines.events
 local Format = string.format
 local script_data = {}
@@ -43,8 +44,8 @@ local Click =
         local player_id = event.player_index
         local richtext = richtextreturn( player_id )
 
-        if richtext ~= "" then
-            script_data.UpdateText( player_id, richtext .. script_data.GUIS[player_id].B["03"]["10"].text )
+        if richtext:len() > 0 then
+            UpdateText( player_id, richtext .. script_data.GUIS[player_id].B["03"]["10"].text )
         else
             game.players[player_id].print( { "Rich.NoChooseElem" } )
         end
@@ -53,8 +54,8 @@ local Click =
         local player_id = event.player_index
         local richtext = richtextreturn( player_id )
 
-        if richtext ~= "" then
-            script_data.UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. richtext )
+        if richtext:len() > 0 then
+            UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. richtext )
         else
             game.players[player_id].print( { "Rich.NoChooseElem" } )
         end

@@ -1,40 +1,8 @@
-local GUI = require "GUI"
+local UpdateText = require "scripts/Shared Functions".UpdateText
+local AddPreset = require "scripts/Shared Functions".RichTextAddPreset
 local de = defines.events
 local Format = string.format
 local script_data = {}
-
-local AddPreset = function( player_id, adding_type, name01, text01 )
-    local gui = script_data.GUIS[player_id].B["03"]
-    local SavedRichTexts = script_data.SavedRichTexts[player_id]
-
-    SavedRichTexts.Number = SavedRichTexts.Number + 1
-
-    local Number = SavedRichTexts.Number
-
-    if Number < 100 then
-        local index_number = Format( "%02d", Number )
-        local text = gui["10"].text
-        local name = gui["15"].text
-
-        gui["15"].text = ""
-
-        if adding_type == "addcurrent" then
-            text = text01
-            name = name01
-        end
-
-        if name:len() == 0 then
-            name = index_number
-        end
-
-        SavedRichTexts.RichTexts[index_number] = text
-        SavedRichTexts.RichTextNames[index_number] = name
-
-        gui["03"].items = SavedRichTexts.RichTextNames
-    else
-        game.players[player_id].print( { "Rich.PresetError100" } )
-    end
-end
 
 local ToggleDropDown = function( player_id )
     local gui = script_data.GUIS[player_id].B["02"]
@@ -52,7 +20,7 @@ local Click =
         local gui = script_data.GUIS[player_id].B
 
         if gui["02"]["05"].visible then
-            script_data.UpdateText( player_id, gui["03"]["06"].caption .. gui["03"]["10"].text )
+            UpdateText( player_id, gui["03"]["06"].caption .. gui["03"]["10"].text )
         else
             game.players[player_id].print( { "Rich.CantAdd" } )
         end
@@ -62,7 +30,7 @@ local Click =
         local gui = script_data.GUIS[player_id].B
 
         if gui["02"]["05"].visible then
-            script_data.UpdateText( player_id, gui["03"]["10"].text .. gui["03"]["06"].caption )
+            UpdateText( player_id, gui["03"]["10"].text .. gui["03"]["06"].caption )
         else
             game.players[player_id].print( { "Rich.CantAdd" } )
         end
@@ -72,13 +40,13 @@ local Click =
         local gui = script_data.GUIS[player_id].B
 
         if gui["02"]["05"].visible then
-            script_data.UpdateText( player_id, gui["03"]["06"].caption )
+            	UpdateText( player_id, gui["03"]["06"].caption )
         else
             game.players[player_id].print( { "Rich.CantAdd" } )
         end
     end,
     ["RichButtonBGUI04"] = function( event )
-        script_data.UpdateText( event.player_index, "" )
+        UpdateText( event.player_index, "" )
     end,
     ["RichButtonBGUI05"] = function( event )
         local player_id = event.player_index
@@ -286,8 +254,6 @@ lib.events =
 
 lib.on_init = function()
     script_data = global.script_data
-
-    script_data.RichTextAddPreset = AddPreset
 end
 
 lib.on_load = function()
@@ -296,10 +262,9 @@ end
 
 lib.on_configuration_changed = function( event )
     local changes = event.mod_changes or {}
+    
     if next( changes ) then
         script_data = global.script_data
-
-        script_data.RichTextAddPreset = AddPreset
     end
 
     local circuitchanges = changes["Simple_Circuit_Trains"] or {}
