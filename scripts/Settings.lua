@@ -1,5 +1,3 @@
-require "util"
-
 local RichTextAddPreset = require "scripts/Shared Functions".RichTextAddPreset
 local ColorAddPreset = require "scripts/Shared Functions".ColorAddPreset
 local GPSAddPreset = require "scripts/Shared Functions".GPSAddPreset
@@ -70,14 +68,19 @@ local Click =
         end
 
         if next( exporttable ) then
-            game.print( "test01" )
-            gui["07"].text = util.encode( game.table_to_json( exporttable ) )
+            gui["07"].text = game.encode_string( game.table_to_json( exporttable ) )
         end
     end,
     ["RichButtonIGUI02"] = function( event )
+        local element = script_data.GUIS[event.player_index].I["01"]["07"]
+
+        element.select_all()
+        element.focus()
+    end,
+    ["RichButtonIGUI03"] = function( event )
         local player_id = event.player_index
-        local gui = script_data.GUIS[player_id].I["02"]["03"]
-        local importtable = game.json_to_table( util.decode( gui.text ) )
+        local gui = script_data.GUIS[player_id].I["02"]["04"]
+        local importtable = game.json_to_table( game.decode_string( gui.text ) )
 
         gui.text = ""
 

@@ -119,6 +119,16 @@ lib.on_configuration_changed = function( event )
 						end
 					end
 				end
+
+				if oldversion <= "0.3.5" then
+					for _, p in pairs( game.players ) do
+						if next( script_data.GUIS[p.index] ) then
+							script_data.GUIS[p.index].A["01"].destroy()
+							script_data.GUIS[p.index] = {}
+							script_data.Reset[p.index] = true
+						end
+					end
+				end
 			end
 		end
 	end

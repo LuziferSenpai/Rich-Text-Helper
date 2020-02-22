@@ -5,11 +5,6 @@ local de = defines.events
 local definesmouse = defines.mouse_button_type
 local script_data = {}
 
-local HEXtoColor = function( HEX )
-    HEX = HEX:gsub( "#", "" )
-    return { r = tonumber( "0x" .. HEX:sub( 1, 2 ) ), g = tonumber( "0x" .. HEX:sub( 3, 4 ) ), b = tonumber( "0x" .. HEX:sub( 5, 6 ) ) }
-end
-
 local SliderEvent = function( event )
     ColorUpdate( event.player_index, "slider" )
 end
@@ -63,21 +58,18 @@ local Click =
     end,
     ["RichButtonDGUI02"] = function( event )
         local player_id = event.player_index
-        local color = HEXtoColor( script_data.CurrentHEX[player_id] )
 
-        UpdateText( player_id, "[color=" .. color.r .. "," .. color.g .. "," .. color.b .. "][/color]" .. script_data.GUIS[player_id].B["03"]["10"].text )
+        UpdateText( player_id, "[color=" .. script_data.CurrentHEX[player_id] .. "][/color]" .. script_data.GUIS[player_id].B["03"]["10"].text )
     end,
     ["RichButtonDGUI03"] = function( event )
         local player_id = event.player_index
-        local color = HEXtoColor( script_data.CurrentHEX[player_id] )
 
-        UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. "[color=" .. color.r .. "," .. color.g .. "," .. color.b .. "][/color]" )
+        UpdateText( player_id, script_data.GUIS[player_id].B["03"]["10"].text .. "[color=" .. script_data.CurrentHEX[player_id] .. "][/color]" )
     end,
     ["RichButtonDGUI04"] = function( event )
         local player_id = event.player_index
-        local color = HEXtoColor( script_data.CurrentHEX[player_id] )
 
-        UpdateText( player_id, "[color=" .. color.r .. "," .. color.g .. "," .. color.b .. "]" .. script_data.GUIS[player_id].B["03"]["10"].text .. "[/color]" )
+        UpdateText( player_id, "[color=" .. script_data.CurrentHEX[player_id] .. "]" .. script_data.GUIS[player_id].B["03"]["10"].text .. "[/color]" )
     end
 }
 

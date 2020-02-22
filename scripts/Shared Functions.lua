@@ -34,9 +34,9 @@ local RichTextAddPreset = function( player_id, adding_type, name01, text01 )
     if Number < 100 then
         local index_number = Format( "%02d", Number )
         local text = gui["10"].text
-        local name = gui["15"].text
+        local name = gui["17"].text
 
-        gui["15"].text = ""
+        gui["17"].text = ""
 
         if adding_type == "addcurrent" then
             text = text01

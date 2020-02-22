@@ -49,6 +49,12 @@ local Click =
         UpdateText( event.player_index, "" )
     end,
     ["RichButtonBGUI05"] = function( event )
+        local element = script_data.GUIS[event.player_index].B["03"]["10"]
+
+        element.select_all()
+        element.focus()
+    end,
+    ["RichButtonBGUI06"] = function( event )
         local player_id = event.player_index
         if script_data.GUIS[player_id].B["03"]["10"].text:len() > 0 then
             AddPreset( player_id )
@@ -56,14 +62,14 @@ local Click =
             game.players[player_id].print( { "Rich.NoRichText" } )
         end
     end,
-    ["RichButtonBGUI06"] = function( event )
+    ["RichButtonBGUI07"] = function( event )
         local player_id = event.player_index
         local player = game.players[player_id]
         local gui = script_data.GUIS[player_id].B
         local text = gui["03"]["10"].text
 
         if text:len() > 0 then
-            local elem_value = gui["03"]["17"].elem_value
+            local elem_value = gui["03"]["19"].elem_value
             local tag =
             {
                 position = player.position,
@@ -86,7 +92,7 @@ local Click =
             player.print( { "Rich.NoRichText" } )
         end
     end,
-    ["RichButtonBGUI07"] = function( event )
+    ["RichButtonBGUI08"] = function( event )
         local player_id = event.player_index
         local player = game.players[player_id]
         local text = script_data.GUIS[player_id].B["03"]["10"].text
@@ -99,7 +105,7 @@ local Click =
             player.print( { "Rich.NoRichText" } )
         end
     end,
-    ["RichButtonBGUI08"] = function( event )
+    ["RichButtonBGUI09"] = function( event )
         local player_id = event.player_index
         local player = game.players[player_id]
         local text = script_data.GUIS[player_id].B["03"]["10"].text
@@ -124,7 +130,7 @@ local Click =
             player.print( { "Rich.NoRichText" } )
         end
     end,
-    ["RichButtonBGUI09"] = function( event )
+    ["RichButtonBGUI10"] = function( event )
         local player_id = event.player_index
         local player = game.players[player_id]
         local text = script_data.GUIS[player_id].B["03"]["10"].text
@@ -139,7 +145,7 @@ local Click =
             player.print( { "Rich.NoRichText" } )
         end
     end,
-    ["RichButtonBGUI10"] = function( event )
+    ["RichButtonBGUI11"] = function( event )
         local player_id = event.player_index
         local player = game.players[player_id]
         local text = script_data.GUIS[player_id].B["03"]["10"].text
@@ -279,7 +285,7 @@ lib.on_configuration_changed = function( event )
 
         for _, p in pairs( game.players ) do
             if next( script_data.GUIS[p.index] ) then
-                script_data.GUIS[p.index].B["03"]["21"].visible = visible
+                script_data.GUIS[p.index].B["03"]["23"].visible = visible
             end
         end
     end
@@ -293,7 +299,7 @@ lib.on_configuration_changed = function( event )
 
         for _, p in pairs( game.players ) do
             if next( script_data.GUIS[p.index] ) then
-                script_data.GUIS[p.index].B["03"]["22"].visible = visible
+                script_data.GUIS[p.index].B["03"]["24"].visible = visible
             end
         end
     end

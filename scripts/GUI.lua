@@ -174,21 +174,27 @@ GUI.RichText = function( parent )
 
 		["12"] = AddLabel( B["02"]["08"], "RichLabelBGUI05", { "Rich.Output" }, "description_label" ),
 		["13"] = AddLabel( B["02"]["08"], "RichLabelBGUI06", "" ),
+		["14"] = AddWidget( B["02"]["08"], "RichWidgetBGUI03" ),
+		["15"] = AddButton( B["02"]["08"], "RichButtonBGUI05", { "Rich.SelectAll" } ),
 
-		["14"] = AddLabel( B["02"]["09"], "RichLabelBGUI07", { "Rich.Name" }, "description_label" ),
-		["15"] = AddTextField( B["02"]["09"], "RichTextFieldBGUI02", "" ),
-		["16"] = AddButton( B["02"]["09"], "RichButtonBGUI05", { "Rich.AddPreset" } ),
+		["16"] = AddLabel( B["02"]["09"], "RichLabelBGUI07", { "Rich.Name" }, "description_label" ),
+		["17"] = AddTextField( B["02"]["09"], "RichTextFieldBGUI02", "" ),
+		["18"] = AddButton( B["02"]["09"], "RichButtonBGUI06", { "Rich.AddPreset" } ),
 
-		["17"] = AddChooseElemButton( B["02"]["11"], "RichChooseElemBGUI01", "signal" ),
-		["18"] = AddButton( B["02"]["11"], "RichButtonBGUI06", { "Rich.CreateTag" } ),
-		["19"] = AddButton( B["02"]["11"], "RichButtonBGUI07", { "Rich.SendMessage" } ),
-		["20"] = AddButton( B["02"]["11"], "RichButtonBGUI08", { "Rich.BackerName" } ),
+		["19"] = AddChooseElemButton( B["02"]["11"], "RichChooseElemBGUI01", "signal" ),
+		["20"] = AddButton( B["02"]["11"], "RichButtonBGUI07", { "Rich.CreateTag" } ),
+		["21"] = AddButton( B["02"]["11"], "RichButtonBGUI08", { "Rich.SendMessage" } ),
+		["22"] = AddButton( B["02"]["11"], "RichButtonBGUI09", { "Rich.BackerName" } ),
 
-		["21"] = AddButton( B["02"]["12"], "RichButtonBGUI09", { "Rich.SetLine" } ),
-		["22"] = AddButton( B["02"]["12"], "RichButtonBGUI10", { "Rich.SetNetwork" } )
+		["23"] = AddButton( B["02"]["12"], "RichButtonBGUI10", { "Rich.SetLine" } ),
+		["24"] = AddButton( B["02"]["12"], "RichButtonBGUI11", { "Rich.SetNetwork" } )
 	}
 
 	B["02"]["01"].style.top_margin = 8
+	B["02"]["03"].visible = false
+	B["02"]["04"].visible = false
+	B["02"]["05"].visible = false
+	B["02"]["06"].visible = false
 	B["02"]["08"].style.top_margin = 8
 	B["02"]["08"].style.bottom_margin = 8
 	B["02"]["11"].style.vertical_align = "center"
@@ -204,21 +210,22 @@ GUI.RichText = function( parent )
 	B["03"]["09"].style.horizontally_stretchable = true
 	B["03"]["13"].style.width = 420
 	B["03"]["13"].style.single_line = false
-	B["03"]["15"].style.width = 110
-	B["03"]["17"].style.width = 28
-	B["03"]["17"].style.height = 28
-	B["03"]["18"].style.horizontally_stretchable = true
-	B["03"]["19"].style.horizontally_stretchable = true
+	B["03"]["14"].style.horizontally_stretchable = true
+	B["03"]["17"].style.width = 110
+	B["03"]["19"].style.width = 28
+	B["03"]["19"].style.height = 28
 	B["03"]["20"].style.horizontally_stretchable = true
 	B["03"]["21"].style.horizontally_stretchable = true
 	B["03"]["22"].style.horizontally_stretchable = true
+	B["03"]["23"].style.horizontally_stretchable = true
+	B["03"]["24"].style.horizontally_stretchable = true
 
 	if not game.active_mods["Simple_Circuit_Trains"] then
-		B["03"]["21"].visible = false
+		B["03"]["23"].visible = false
 	end
 
 	if not game.active_mods["Wireless_Circuit_Network"] then
-		B["03"]["22"].visible = false
+		B["03"]["24"].visible = false
 	end
 
 	return B
@@ -474,10 +481,11 @@ GUI.Tab07 = function( parent )
 		["03"] = AddCheckbox( parent, "RichCheckboxIGUI01", { "Rich.RichTemplates" } ),
 		["04"] = AddCheckbox( parent, "RichCheckboxIGUI02", { "Rich.ColorTemplates" } ),
 		["05"] = AddCheckbox( parent, "RichCheckboxIGUI03", { "Rich.GPSTemplates" } ),
-		["06"] = AddFlow( parent, "RichFlowIGUI05", "horizontal", "richcolorflow" ),
+		["06"] = AddFlow( parent, "RichFlowIGUI02", "horizontal", "richcolorflow" ),
 		["07"] = AddTextBox( parent, "RichTextBoxIGUI01", "", "richtextbox" ),
-		["08"] = AddLine( parent, "RichLineIGUI02", "horizontal", "richline" ),
-		["09"] = AddFlow( parent, "RichFlowIGUI06", "horizontal", "richcolorflow" )
+		["08"] = AddFlow( parent, "RichFlowIGUI03", "horizontal", "richcolorflow" ),
+		["09"] = AddLine( parent, "RichLineIGUI02", "horizontal", "richline" ),
+		["10"] = AddFlow( parent, "RichFlowIGUI04", "horizontal", "richcolorflow" )
 	}
 	I["02"] =
 	{
@@ -485,8 +493,10 @@ GUI.Tab07 = function( parent )
 
 		["02"] = AddButton( I["01"]["06"], "RichButtonIGUI01", { "Rich.Generate" } ),
 
-		["03"] = AddTextField( I["01"]["09"], "RichTextFieldIGUI01", "", "richtextbox" ),
-		["04"] = AddButton( I["01"]["09"], "RichButtonIGUI02", { "Rich.Import" } )
+		["03"] = AddButton( I["01"]["08"], "RichButtonIGUI02", { "Rich.SelectAll" } ),
+
+		["04"] = AddTextField( I["01"]["10"], "RichTextFieldIGUI01", "", "richtextbox" ),
+		["05"] = AddButton( I["01"]["10"], "RichButtonIGUI03", { "Rich.Import" } )
 	}
 
 	I["01"]["01"].style.horizontal_align = "center"
@@ -495,6 +505,8 @@ GUI.Tab07 = function( parent )
 	I["01"]["07"].word_wrap = true
 	I["01"]["07"].style.height = 105
 	I["01"]["07"].style.top_margin = 8
+	I["01"]["07"].style.bottom_margin = 8
+	I["01"]["08"].style.horizontal_align = "right"
 
 	I["02"]["01"].style.font = "heading-2"
 	I["02"]["02"].style.height = 28

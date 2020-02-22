@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.5
+Date: 21.02.2020
+  Bugfixes:
+    - Fixed Settings Tab, because it was broken
+    - Fixed Rich Text Dropdown selection visibility
+  Changes:
+    - Only works in 18.7+
+  Features:
+    - Added Select All Buttons to Rich Text Textfield and Settings Textbox
+---------------------------------------------------------------------------------------------------
 Version: 0.3.4
 Date: 15.02.2020
   Bugfixes:
@@ -51,7 +61,7 @@ Date: 24.09.2019
     - Changed the Font of the Name Labels and Tab Titles
   Bugfixes:
     - Fixed that Error Messages came when adding a GPS Preset
-  New:
+  Features:
     - The open GUI Button has new Features, look Tutorial
     - When the GUI was opened via Button and something was selected,
       Set Backer Name will set it to that Entity
@@ -59,7 +69,7 @@ Date: 24.09.2019
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.2
 Date: 20.09.2019
-  New:
+  Features:
     - Trains & Train Stop Tab Dropdown, are now sorted
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
@@ -69,7 +79,7 @@ Date: 19.09.2019
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 18.09.2019
-  New:
+  Features:
     - Works now with Simple Circuit Trains
     - Simple Circuit Trains Line Name can be set inside this Modification
     - Little Code Cleanup
