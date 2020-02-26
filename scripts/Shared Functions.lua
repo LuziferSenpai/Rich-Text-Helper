@@ -1,5 +1,5 @@
 local Defines = require "defines"
-local GUI = require "scripts/GUI".AddButton
+local GUI = require "scripts/GUI".AddLabel
 local Format = string.format
 local script_data = {}
 
@@ -68,7 +68,7 @@ local ColorAddPreset = function( player_id, adding_type, tooltip01, color01 )
         local tooltip = gui["02"]["17"].text
 
         gui["02"]["17"].text = ""
-        gui["03"][index_number] = GUI( gui["02"]["19"], "RichPresetButtonDGUI" .. index_number, "B", "richpresetbutton" )
+        gui["03"][index_number] = GUI( gui["02"]["19"], "RichPresetLabelDGUI" .. index_number, "B", "richpresetlabel" )
 
         if adding_type == "addcurrent" then
             color = color01
@@ -76,11 +76,8 @@ local ColorAddPreset = function( player_id, adding_type, tooltip01, color01 )
         end
 
         gui["03"][index_number].style.font_color = color
-        gui["03"][index_number].style.hovered_font_color = color
-        gui["03"][index_number].style.clicked_font_color = color
-        gui["03"][index_number].style.disabled_font_color = color
-
-        if tooltip:len() > 0 then   
+        
+        if tooltip:len() > 0 then 
             gui["03"][index_number].tooltip = tooltip
         end
 

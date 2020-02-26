@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.6
+Date: 26.02.2020
+  Bugfixes:
+    - Fixed missing Icon Error
+    - Fixed Error with deleting Rich Text
+    - Fixed the Color Templates
+---------------------------------------------------------------------------------------------------
 Version: 0.3.5
 Date: 21.02.2020
   Bugfixes:

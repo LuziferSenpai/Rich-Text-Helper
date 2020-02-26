@@ -23,6 +23,8 @@ local MainGUIToggle = function( player_id )
 
 		gui["01"].location = script_data.Position[player_id]
 
+		gui["04"]["08"].visible = game.is_multiplayer()
+
 		script_data.GUIS[player_id].A = gui
 
 		local gui2 = GUI.RichText( gui["01"] )
@@ -33,29 +35,31 @@ local MainGUIToggle = function( player_id )
 
 		script_data.GUIS[player_id].B = gui2
 
-		script_data.GUIS[player_id].C = GUI.Tab01( gui["04"]["08"] )
+		script_data.GUIS[player_id].C = GUI.Tab01( gui["04"]["09"] )
 
-		script_data.GUIS[player_id].D = GUI.Tab02( gui["04"]["09"] )
+		script_data.GUIS[player_id].D = GUI.Tab02( gui["04"]["10"] )
 
 		ColorUpdate( player_id, "" )
 
-		script_data.GUIS[player_id].E = GUI.Tab03( gui["04"]["10"] )
+		script_data.GUIS[player_id].E = GUI.Tab03( gui["04"]["11"] )
 
-		local gui3 = GUI.Tab04( gui["04"]["11"] )
+		local gui3 = GUI.Tab04( gui["04"]["12"] )
 
 		gui3["02"]["03"].items = script_data.SavedGPS[player_id].PositionNames
 
 		script_data.GUIS[player_id].F = gui3
 
-		script_data.GUIS[player_id].G = GUI.Tab05( gui["04"]["12"] )
+		script_data.GUIS[player_id].G = GUI.Tab05( gui["04"]["13"] )
 
 		TrainUpdate( player_id )
 
-		script_data.GUIS[player_id].H = GUI.Tab06( gui["04"]["13"] )
+		script_data.GUIS[player_id].H = GUI.Tab06( gui["04"]["14"] )
 
 		TrainStopUpdate( player_id )
 
-		script_data.GUIS[player_id].I = GUI.Tab07( gui["04"]["14"] )
+		script_data.GUIS[player_id].I = GUI.Tab07( gui["04"]["15"] )
+
+		--script_data.GUIS[player_id].J = GUI.Tab08( gui["04"]["16"] )
 
 		if script_data.Reset[player_id] then
 			script_data.Reset[player_id] = false
@@ -148,11 +152,13 @@ end
 
 --Events
 local on_gui_click = function( event )
-	local click = Click[event.element.name]
+	if event.element.valid then
+        local click = Click[event.element.name]
 
-	if click then
-		click( event )
-	end
+        if click then
+            click( event )
+        end
+    end
 end
 
 local on_gui_location_changed = function( event )

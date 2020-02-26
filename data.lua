@@ -7,20 +7,15 @@ s["richtitlebarflow"] =
     vertical_align = "center"
 }
 
-s["richpresetbutton"] =
+s["richpresetlabel"] =
 {
-    type = "button_style",
-    parent = "slot_button",
-    width = 18,
-    height = 18,
+    type = "label_style",
+    parent = "label",
+    width = 15,
+    height = 15,
     scalable = false,
-    align = "left",
     font = "RichSavedPreset",
-    hovered_font_color = nil,
-    clicked_font_color = nil,
-    disabled_font_color = nil,
-    default_font_color = nil,
-    padding = 0
+    top_padding = -4
 }
 
 s["richdragwidget"] =
@@ -107,7 +102,7 @@ data:extend
         type = "font",
         name = "RichSavedPreset",
         from = "Simple",
-        size = 14
+        size = 15
     },
     {
         type = "custom-input",
@@ -120,5 +115,14 @@ data:extend
         name = "RichBacker",
         action = "lua",
         key_sequence = "CONTROL + SHIFT + B"
+    },
+    {
+        type = "sprite",
+        name = "Senpais-remove",
+        filename = "__Rich_Text_Helper__/remove-icon.png",
+        priority = "extra-high-no-scale",
+        width = 64,
+        height = 64,
+        scale = 1
     }
 }

@@ -203,7 +203,7 @@ local Click =
                 ToggleDropDown( player_id )
             end
         else
-            game.player[player_id].print( { "Rich.NothingSelected" } )
+            game.players[player_id].print( { "Rich.NothingSelected" } )
         end
     end
 }
@@ -234,10 +234,12 @@ local Events =
 
 --Events
 local on_gui_click = function( event )
-    local click = Click[event.element.name]
+    if event.element.valid then
+        local click = Click[event.element.name]
 
-    if click then
-        click( event )
+        if click then
+            click( event )
+        end
     end
 end
 

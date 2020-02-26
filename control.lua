@@ -8,6 +8,7 @@ local script_data =
 	CurrentPosition = {},
 	CurrentRichText = {},
 	GUIS = {},
+	Multi = false,
 	Position = {},
 	Reset = {},
 	SavedColors = {},
@@ -40,7 +41,7 @@ lib.on_configuration_changed = function( event )
 			local oldversion = richchanges.old_version
 
 			if oldversion and richchanges.new_version then
-				if oldversion <= "0.0.2" then
+				if oldversion == "0.0.1" then
 					for _, p in pairs( game.players ) do
 						local player_id = p.index
 
@@ -53,7 +54,7 @@ lib.on_configuration_changed = function( event )
 					end
 				end
 
-				if oldversion <= "0.0.4" then
+				if oldversion <= "0.0.3" then
 					for _, p in pairs( game.players ) do
 						if next( global.GUIS[p.index] ) then
 							global.GUIS[p.index].A["01"].destroy()
@@ -63,7 +64,7 @@ lib.on_configuration_changed = function( event )
 					end
 				end
 
-				if oldversion <= "0.1.0" then
+				if oldversion <= "0.0.4" then
 					for _, p in pairs( game.players ) do
 						if next( global.GUIS[p.index] ) then
 							if not p.gui.screen.RichFrameAGUI01 then
@@ -74,7 +75,7 @@ lib.on_configuration_changed = function( event )
 					end
 				end
 
-				if oldversion <= "0.1.2" then
+				if oldversion <= "0.1.1" then
 					for _, p in pairs( game.players ) do
 						if next( global.GUIS[p.index] ) then
 							global.GUIS[p.index].A["01"].destroy()
@@ -84,7 +85,7 @@ lib.on_configuration_changed = function( event )
 					end
 				end
 
-				if oldversion <= "0.3.0" then
+				if oldversion <= "0.2.2" then
 					script_data.CurrentHEX = global.CurrentHEX
 					script_data.CurrentPosition = global.CurrentPosition
 					script_data.CurrentRichText = global.CurrentRichText
@@ -120,6 +121,16 @@ lib.on_configuration_changed = function( event )
 					end
 				end
 
+				if oldversion <= "0.3.4" then
+					for _, p in pairs( game.players ) do
+						if next( script_data.GUIS[p.index] ) then
+							script_data.GUIS[p.index].A["01"].destroy()
+							script_data.GUIS[p.index] = {}
+							script_data.Reset[p.index] = true
+						end
+					end
+				end
+
 				if oldversion <= "0.3.5" then
 					for _, p in pairs( game.players ) do
 						if next( script_data.GUIS[p.index] ) then
@@ -146,7 +157,8 @@ local libs =
 	["08"] = require "scripts/Trains",
 	["09"] = require "scripts/Train Stops",
 	["10"] = require "scripts/Settings",
-	["11"] = require "scripts/Shared Functions".lib
+	--["11"] = require "scripts/Multiplayer",
+	["12"] = require "scripts/Shared Functions".lib
 }
 
 handler.add_libraries( libs )

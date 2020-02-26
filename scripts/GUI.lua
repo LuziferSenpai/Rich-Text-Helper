@@ -95,37 +95,41 @@ GUI.Main = function( parent )
 		["05"] = AddTab( A["03"]["04"], "RichTabAGUI06", { "Rich.Tab05" } ),
 		["06"] = AddTab( A["03"]["04"], "RichTabAGUI07", { "Rich.Tab06" } ),
 		["07"] = AddTab( A["03"]["04"], "RichTabAGUI08", { "Rich.Tab07" } ),
-		["08"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI01", "vertical", "richtabscrollpane" ),
-		["09"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI02", "vertical", "richtabscrollpane" ),
-		["10"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI03", "vertical", "richtabscrollpane" ),
-		["11"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI04", "vertical", "richtabscrollpane" ),
-		["12"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI05", "vertical", "richtabscrollpane" ),
-		["13"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI06", "vertical", "richtabscrollpane" ),
-		["14"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI07", "vertical", "richtabscrollpane" )
+		["08"] = AddTab( A["03"]["04"], "RichTabAGUI09", { "Rich.Tab08" } ),
+		["09"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI01", "vertical", "richtabscrollpane" ),
+		["10"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI02", "vertical", "richtabscrollpane" ),
+		["11"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI03", "vertical", "richtabscrollpane" ),
+		["12"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI04", "vertical", "richtabscrollpane" ),
+		["13"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI05", "vertical", "richtabscrollpane" ),
+		["14"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI06", "vertical", "richtabscrollpane" ),
+		["15"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI07", "vertical", "richtabscrollpane" ),
+		["16"] = AddScrollPane( A["03"]["04"], "RichScrollPaneAGUI08", "vertical", "richtabscrollpane" )
 	}
 
 	A["01"].style.vertical_align = "center"
 
 	A["02"]["01"].style.vertical_align = "center"
-	A["02"]["02"].style.horizontal_align = "center"
 
 	A["03"]["02"].drag_target = A["01"]
 	A["03"]["04"].style.height = 400
-	A["03"]["04"].add_tab( A["04"]["01"], A["04"]["08"] )
-	A["03"]["04"].add_tab( A["04"]["02"], A["04"]["09"] )
-	A["03"]["04"].add_tab( A["04"]["03"], A["04"]["10"] )
-	A["03"]["04"].add_tab( A["04"]["04"], A["04"]["11"] )
-	A["03"]["04"].add_tab( A["04"]["05"], A["04"]["12"] )
-	A["03"]["04"].add_tab( A["04"]["06"], A["04"]["13"] )
-	A["03"]["04"].add_tab( A["04"]["07"], A["04"]["14"] )
+	A["03"]["04"].style.horizontal_align = "center"
+	A["03"]["04"].add_tab( A["04"]["01"], A["04"]["09"] )
+	A["03"]["04"].add_tab( A["04"]["02"], A["04"]["10"] )
+	A["03"]["04"].add_tab( A["04"]["03"], A["04"]["11"] )
+	A["03"]["04"].add_tab( A["04"]["04"], A["04"]["12"] )
+	A["03"]["04"].add_tab( A["04"]["05"], A["04"]["13"] )
+	A["03"]["04"].add_tab( A["04"]["06"], A["04"]["14"] )
+	A["03"]["04"].add_tab( A["04"]["07"], A["04"]["15"] )
+	A["03"]["04"].add_tab( A["04"]["08"], A["04"]["16"] )
 
-	A["04"]["08"].horizontal_scroll_policy = "never"
 	A["04"]["09"].horizontal_scroll_policy = "never"
 	A["04"]["10"].horizontal_scroll_policy = "never"
 	A["04"]["11"].horizontal_scroll_policy = "never"
 	A["04"]["12"].horizontal_scroll_policy = "never"
 	A["04"]["13"].horizontal_scroll_policy = "never"
 	A["04"]["14"].horizontal_scroll_policy = "never"
+	A["04"]["15"].horizontal_scroll_policy = "never"
+	A["04"]["16"].horizontal_scroll_policy = "never"
 
 	return A
 end
@@ -160,7 +164,7 @@ GUI.RichText = function( parent )
 		["01"] = AddLabel( B["02"]["01"], "RichLabelBGUI02", { "Rich.TextTitle" }, "caption_label" ),
 		["02"] = AddWidget( B["02"]["01"], "RichWidgetBGUI02" ),
 		["03"] = AddDropDown( B["02"]["01"], "RichDropDownBGUI01", {} ),
-		["04"] = AddSpriteButton( B["02"]["01"], "RichSpriteButtonBGUI01", "utility/remove", "richtoolbutton" ),
+		["04"] = AddSpriteButton( B["02"]["01"], "RichSpriteButtonBGUI01", "Senpais-remove", "richtoolbutton" ),
 
 		["05"] = AddLabel( B["02"]["03"], "RichLabelBGUI03", { "Rich.DropdownSelection" }, "description_label" ),
 		["06"] = AddLabel( B["02"]["03"], "RichLabelBGUI04", "" ),
@@ -211,7 +215,7 @@ GUI.RichText = function( parent )
 	B["03"]["13"].style.width = 420
 	B["03"]["13"].style.single_line = false
 	B["03"]["14"].style.horizontally_stretchable = true
-	B["03"]["17"].style.width = 110
+	B["03"]["17"].style.width = 200
 	B["03"]["19"].style.width = 28
 	B["03"]["19"].style.height = 28
 	B["03"]["20"].style.horizontally_stretchable = true
@@ -388,7 +392,7 @@ GUI.Tab04 = function( parent )
 		["01"] = AddLabel( F["01"]["01"], "RichLabelFGUI01", { "Rich.Tab04Title" }, "caption_label" ),
 		["02"] = AddWidget( F["01"]["01"], "RichWidgetFGUI01" ),
 		["03"] = AddDropDown( F["01"]["01"], "RichDropDownFGUI01", {} ),
-		["04"] = AddSpriteButton( F["01"]["01"], "RichSpriteButtonFGUI01", "utility/remove", "richtoolbutton" ),
+		["04"] = AddSpriteButton( F["01"]["01"], "RichSpriteButtonFGUI01", "Senpais-remove", "richtoolbutton" ),
 
 		["05"] = AddLabel( F["01"]["03"], "RichLabelFGUI02", { "Rich.DropdownSelection" }, "description_label" ),
 		["06"] = AddLabel( F["01"]["03"], "RichLabelFGUI03", "" ),
@@ -510,12 +514,55 @@ GUI.Tab07 = function( parent )
 
 	I["02"]["01"].style.font = "heading-2"
 	I["02"]["02"].style.height = 28
+	I["02"]["03"].style.height = 28
 
 	return I
 end
 
+GUI.Tab08 = function( parent )
+	local J = {}
+
+	J["01"] =
+	{
+		["01"] = AddFlow( parent, "RichFlowJGUI01", "horizontal", "richtitlebarflow" ),
+		["02"] = AddLine( parent, "RichLineJGUI01", "horizontal", "richheadline" ),
+		["03"] = AddFrame( parent, "RichFrameJGUI01", "inside_deep_frame_for_tabs" )
+	}
+
+	J["02"] =
+	{
+		["01"] = AddLabel( J["01"]["01"], "RichLabelJGUI01", { "Rich.Tab08Title" }, "caption_label" ),
+
+		["02"] = AddPane( J["01"]["03"], "RichPaneJGUI01" )
+	}
+	J["03"] =
+	{
+		["01"] = AddTab( J["02"]["02"], "RichTabJGUI01", { "Rich.Tab0801" } ),
+		["02"] = AddTab( J["02"]["02"], "RichTabJGUI02", { "Rich.Tab0802" } ),
+		["03"] = AddTab( J["02"]["02"], "RichTabJGUI03", { "Rich.Tab0803" } ),
+		["04"] = AddScrollPane( J["02"]["02"], "RichScrollPaneJGUI01", "vertical", "richtabscrollpane" ),
+		["05"] = AddScrollPane( J["02"]["02"], "RichScrollPaneJGUI02", "vertical", "richtabscrollpane" ),
+		["06"] = AddScrollPane( J["02"]["02"], "RichScrollPaneJGUI03", "vertical", "richtabscrollpane" )
+	}
+
+	J["01"]["01"].style.horizontal_align = "center"
+	J["01"]["03"].style.horizontally_stretchable = true
+
+	J["02"]["01"].style.font = "heading-2"
+	J["02"]["02"].style.height = 200
+	J["02"]["02"].style.horizontally_stretchable = true
+	J["02"]["02"].add_tab( J["03"]["01"], J["03"]["04"] )
+	J["02"]["02"].add_tab( J["03"]["02"], J["03"]["05"] )
+	J["02"]["02"].add_tab( J["03"]["03"], J["03"]["06"] )
+
+	J["03"]["04"].horizontal_scroll_policy = "never"
+	J["03"]["05"].horizontal_scroll_policy = "never"
+	J["03"]["06"].horizontal_scroll_policy = "never"
+end
+
 GUI.AddButton = AddButton
 GUI.AddChooseElemButton = AddChooseElemButton
+GUI.AddLabel = AddLabel
 GUI.AddSpriteButton = AddSpriteButton
 
 return GUI

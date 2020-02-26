@@ -19,7 +19,7 @@ end
 
 local PresetEvent = function( event )
     local player_id = event.player_index
-    local index_number = event.element.name:gsub( "RichPresetButtonDGUI", "" )
+    local index_number = event.element.name:gsub( "RichPresetLabelDGUI", "" )
     local button = event.button
 
     if button == definesmouse.left then
@@ -105,13 +105,15 @@ local Events =
 
 --Events
 local on_gui_click = function( event )
-    local name = event.element.name
-    local click = Click[name]
+    if event.element.valid then
+        local name = event.element.name
+        local click = Click[name]
 
-    if click then
-        click( event )
-    elseif name:find( "RichPresetButtonDGUI" ) then
-        PresetEvent( event )
+        if click then
+            click( event )
+        elseif name:find( "RichPresetLabelDGUI" ) then
+            PresetEvent( event )
+        end
     end
 end
 

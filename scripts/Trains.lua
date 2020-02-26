@@ -41,10 +41,12 @@ Click =
 
 --Events
 local on_gui_click = function( event )
-    local click = Click[event.element.name]
+    if event.element.valid then
+        local click = Click[event.element.name]
 
-    if click then
-        click( event )
+        if click then
+            click( event )
+        end
     end
 end
 
