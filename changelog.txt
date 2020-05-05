@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+Date: 05.05.2020
+  Changes:
+    - complete script rework
+    - fixed a few error
+    - new design in a few parts
+  Features:
+    - Multiplayer tab, now you can send your presets!
+---------------------------------------------------------------------------------------------------
 Version: 0.3.6
 Date: 26.02.2020
   Bugfixes:
