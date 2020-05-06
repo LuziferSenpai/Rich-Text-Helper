@@ -192,10 +192,10 @@ lib.on_configuration_changed = function( event )
                             playermeta.gps:addpreset( savedgps.PositionNames[index], position )
                         end
                     end
-                elseif oldchanges == "0.4.0" then
-                    for _, player in pairs( game.players ) do
-                        if player.gui.top.mod_gui_button_flow.RichButton then player.gui.top.mod_gui_button_flow.RichButton.destroy() end
-                    end
+                end
+            elseif oldchanges == "0.4.0" or oldchanges == "0.4.1" then
+                for _, player in pairs( game.players ) do
+                    if player.gui.top.mod_gui_button_flow.RichButton then player.gui.top.mod_gui_button_flow.RichButton.destroy() end
                 end
             end
         end
