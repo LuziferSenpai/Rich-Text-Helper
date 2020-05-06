@@ -154,38 +154,47 @@ lib.on_configuration_changed = function( event )
     local changes = event.mod_changes and event.mod_changes["Rich_Text_Helper"] or {}
 
     if next( changes ) then
-        if changes.old_version and changes.old_version == "0.3.6" and changes.new_version then
-            local script = global.script_data
+        local oldchanges = changes.old_version
+        if oldchanges and changes.new_version then
+            if oldchanges == "0.3.6" then
+                local script = global.script_data
 
-            if next( script ) then
-                for _, player in pairs( game.players ) do
-                    local id = player.index
+                if next( script ) then
+                    for _, player in pairs( game.players ) do
+                        local id = player.index
 
-                    if next( script.GUIS[id] ) then
-                        script.GUIS[id].A["01"].destroy()
-                    end
+                        if player.gui.top.mod_gui_button_flow.RichButton then player.gui.top.mod_gui_button_flow.RichButton.destroy() end
 
-                    local playermeta = script_data.players[tostring( id )]
+                        if next( script.GUIS[id] ) then
+                            script.GUIS[id].A["01"].destroy()
+                        end
+
+                        local playermeta = script_data.players[tostring( id )]
                     
-                    playermeta.location = script.Position[id]
-                    playermeta.richtext.currentrichtext = script.CurrentRichText[id]
-                    playermeta.colors.currenthex = script.CurrentHEX[id]
-                    playermeta.gps.currentposition = script.CurrentPosition[id]
+                        playermeta.location = script.Position[id]
+                        playermeta.richtext.currentrichtext = script.CurrentRichText[id]
+                        playermeta.colors.currenthex = script.CurrentHEX[id]
+                        playermeta.gps.currentposition = script.CurrentPosition[id]
 
-                    local savedrichtexts = script.SavedRichTexts[id]
-                    local savedcolors = script.SavedColors[id]
-                    local savedgps = script.SavedGPS[id]
-                                        
-                    for index, text in pairs( savedrichtexts.RichTexts ) do
-                        playermeta.richtext:addpreset( savedrichtexts.RichTextNames[index], text )
+                        local savedrichtexts = script.SavedRichTexts[id]
+                        local savedcolors = script.SavedColors[id]
+                        local savedgps = script.SavedGPS[id]
+
+                        for index, text in pairs( savedrichtexts.RichTexts ) do
+                            playermeta.richtext:addpreset( savedrichtexts.RichTextNames[index], text )
+                        end
+
+                        for index, color in pairs( savedcolors.Colors ) do
+                            playermeta.colors:addpreset( savedcolors.ColorNames[index], color )
+                        end
+
+                        for index, position in pairs( savedgps.Positions ) do
+                            playermeta.gps:addpreset( savedgps.PositionNames[index], position )
+                        end
                     end
-
-                    for index, color in pairs( savedcolors.Colors ) do
-                        playermeta.colors:addpreset( savedcolors.ColorNames[index], color )
-                    end
-
-                    for index, position in pairs( savedgps.Positions ) do
-                        playermeta.gps:addpreset( savedgps.PositionNames[index], position )
+                elseif oldchanges == "0.4.0" then
+                    for _, player in pairs( game.players ) do
+                        if player.gui.top.mod_gui_button_flow.RichButton then player.gui.top.mod_gui_button_flow.RichButton.destroy() end
                     end
                 end
             end

@@ -38,9 +38,9 @@ function multiplayer:gui( parent )
     parent.add{ type = "flow", direction = "horizontal", style = "richtitlebarflowcenter" }.add{ type = "label", caption = { "Rich.Tab08Title" }, style = "richtitlelabel" }
     parent.add{ type = "line", direction = "horizontal", style = "richheadline" }
     local horizontalflow = parent.add{ type = "flow", direction = "horizontal", style = "richbuttonflow" }
-    local pane = horizontalflow.add{ type = "frame", style = "inside_deep_frame_for_tabs" }.add{ type = "tabbed-pane", style = "richpane250" }
+    local pane = horizontalflow.add{ type = "frame", style = "inside_deep_frame_for_tabs" }.add{ type = "tabbed-pane", style = "richpane300" }
     horizontalflow.add{ type = "line", direction = "vertical", style = "richlinevertical" }
-    local verticalflow = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical" }
+    local verticalflow = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical350" }
     verticalflow.add{ type = "label", caption = { "Rich.PlayerList" }, style = "richtitlelabel" }
     verticalflow.add{ type = "line", direction = "horizontal", style = "richline" }
     self.listbox = verticalflow.add{ type = "list-box", items = self.dropdowntable[1], style = "richlistbox" }
@@ -130,17 +130,17 @@ function multiplayer:accept_gui( presets, player )
         frame.add{ type = "flow", direction = "horizontal", style = "richtitlebarflowcenter" }.add{ type = "label", caption = { "Rich.AcceptTitle" }, style = "richtitlelabel" }
         frame.add{ type = "line", direction = "horizontal", style = "richheadline" }
         local horizontalflow = frame.add{ type = "scroll-pane", direction = "vertical", style = "richscrollpane" }.add{ type = "flow", direction = "horizontal", style = "richbuttonflow" }
-        local verticalflow1 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical300" }
+        local verticalflow1 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical250" }
         verticalflow1.add{ type = "label", caption = { "Rich.Richtext" }, style = "richtitlelabel" }
         verticalflow1.add{ type = "line", direction = "horizontal", style = "richline" }
         local verticalflow12 = verticalflow1.add{ type = "flow", direction = "vertical", style = "richflowverticalleft" }
-        horizontalflow.add{ type = "line", direction = "vertical", style = "richlinevertical300" }
-        local verticalflow2 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical300" }
+        horizontalflow.add{ type = "line", direction = "vertical", style = "richflowvertical250" }
+        local verticalflow2 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical250" }
         verticalflow2.add{ type = "label", caption = { "Rich.Colors" }, style = "richtitlelabel" }
         verticalflow2.add{ type = "line", direction = "horizontal", style = "richline" }
         local verticalflow22 = verticalflow2.add{ type = "flow", direction = "vertical", style = "richflowverticalleft" }
-        horizontalflow.add{ type = "line", direction = "vertical", style = "richlinevertical300" }
-        local verticalflow3 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical300" }
+        horizontalflow.add{ type = "line", direction = "vertical", style = "richflowvertical250" }
+        local verticalflow3 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical250" }
         verticalflow3.add{ type = "label", caption = { "Rich.GPS" }, style = "richtitlelabel" }
         verticalflow3.add{ type = "line", direction = "horizontal", style = "richline" }
         local verticalflow32 = verticalflow3.add{ type = "flow", direction = "vertical", style = "richflowverticalleft" }

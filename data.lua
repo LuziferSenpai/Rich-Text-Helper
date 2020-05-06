@@ -82,11 +82,17 @@ s["richflowvertical"] =
     horizontal_align = "center"
 }
 
-s["richflowvertical300"] =
+s["richflowvertical250"] =
 {
     type = "vertical_flow_style",
     horizontal_align = "center",
     width = 250
+}
+s["richflowvertical350"] =
+{
+    type = "vertical_flow_style",
+    horizontal_align = "center",
+    width = 350
 }
 s["richflowverticalleft"] =
 {
@@ -279,11 +285,10 @@ s["richpane400"] =
     height = 400
 }
 
-s["richpane250"] =
+s["richpane300"] =
 {
     type = "tabbed_pane_style",
     height = 300,
-    width = 300,
 }
 
 --Checkbox

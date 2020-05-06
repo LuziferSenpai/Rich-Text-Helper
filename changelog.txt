@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.1
+Date: 06.05.2020
+  Bugfixes:
+    - Fixed that the old button was still at the top
+    - Fixed that longer tab names, wouldnt be shown right
+---------------------------------------------------------------------------------------------------
 Version: 0.4.0
 Date: 05.05.2020
   Changes:
