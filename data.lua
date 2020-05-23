@@ -21,7 +21,7 @@ s["richtitlebarflow8"] =
 {
     type = "horizontal_flow_style",
     parent = "richtitlebarflow",
-    top_margin = 8,
+    top_margin = 8
 }
 
 s["richtitlebarflowcenter"] =

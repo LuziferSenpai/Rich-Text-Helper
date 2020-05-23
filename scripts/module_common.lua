@@ -97,7 +97,7 @@ lib.events =
                 if entity.supports_backer_name() then
                     player.savedentity = entity
 
-                    player.rich:update_text( entity.backer_name )
+                    player.richtext:update_text( entity.backer_name )
                 else
                     player.player.print( { "Rich.NoBackerName" } )
                 end
