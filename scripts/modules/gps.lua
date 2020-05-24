@@ -156,7 +156,7 @@ function gps:on_gui_click( event )
                     self:update( {} )
                     self:toggle()
                 else
-                    self.update( self.savedgps.postions[index] )
+                    self:update( self.savedgps.positions[tostring( selected_index )] )
                 end
             else
                 self.dropdown.items = {}
