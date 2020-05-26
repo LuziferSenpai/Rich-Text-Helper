@@ -47,7 +47,7 @@ function player_data:gui()
     local titleflow = frame.add{ type = "flow", direction = "horizontal", style = "richtitlebarflow" }
     titleflow.add{ type = "label", caption = { "Rich.Title" }, style = "frame_title" }
     titleflow.add{ type = "empty-widget", style = "richdragwidget" }.drag_target = frame
-    titleflow.add{ type = "sprite-button", name = "RICH_CLICK_20_player02", sprite = "utility/close_white", style = "close_button" }
+    titleflow.add{ type = "sprite-button", name = "RICH_CLICK_20_player02", sprite = "utility/close_white", style = "frame_action_button" }
     local pane = frame.add{ type = "frame", style = "inside_deep_frame_for_tabs" }.add{ type = "tabbed-pane", style = "richpane400" }
     local tabs =
     {
