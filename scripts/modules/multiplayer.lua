@@ -21,12 +21,12 @@ function multiplayer:makedropdowntable()
     local index_number = 0
 
     for index, player in pairs( players ) do
-        --if player.player.connected and index ~= player_char.index then
+        if player.player.connected and index ~= player_char.index then
             index_number = index_number + 1
 
             dropdowntable[1][index_number] = player.player.name
             dropdowntable[2][index_number] = player
-        --end
+        end
     end
 
     self.dropdowntable = dropdowntable
