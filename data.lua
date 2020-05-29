@@ -86,7 +86,8 @@ s["richflowvertical250"] =
 {
     type = "vertical_flow_style",
     horizontal_align = "center",
-    width = 250
+    width = 250,
+    minimal_height = 280
 }
 s["richflowvertical350"] =
 {
@@ -254,6 +255,13 @@ s["richline"] =
     type = "line_style",
     top_margin = 8,
     bottom_margin = 8
+}
+
+s["richline280"] =
+{
+    type = "line_style",
+    parent = "richline",
+    minimal_height = 280
 }
 
 s["richheadline"] =

@@ -21,12 +21,12 @@ function multiplayer:makedropdowntable()
     local index_number = 0
 
     for index, player in pairs( players ) do
-        if player.player.connected and index ~= player_char.index then
+        --if player.player.connected and index ~= player_char.index then
             index_number = index_number + 1
 
             dropdowntable[1][index_number] = player.player.name
             dropdowntable[2][index_number] = player
-        end
+        --end
     end
 
     self.dropdowntable = dropdowntable
@@ -134,12 +134,12 @@ function multiplayer:accept_gui( presets, player )
         verticalflow1.add{ type = "label", caption = { "Rich.Richtext" }, style = "richtitlelabel" }
         verticalflow1.add{ type = "line", direction = "horizontal", style = "richline" }
         local verticalflow12 = verticalflow1.add{ type = "flow", direction = "vertical", style = "richflowverticalleft" }
-        horizontalflow.add{ type = "line", direction = "vertical", style = "richflowvertical250" }
+        horizontalflow.add{ type = "line", direction = "vertical", style = "richline280" }
         local verticalflow2 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical250" }
         verticalflow2.add{ type = "label", caption = { "Rich.Colors" }, style = "richtitlelabel" }
         verticalflow2.add{ type = "line", direction = "horizontal", style = "richline" }
         local verticalflow22 = verticalflow2.add{ type = "flow", direction = "vertical", style = "richflowverticalleft" }
-        horizontalflow.add{ type = "line", direction = "vertical", style = "richflowvertical250" }
+        horizontalflow.add{ type = "line", direction = "vertical", style = "richline280" }
         local verticalflow3 = horizontalflow.add{ type = "flow", direction = "vertical", style = "richflowvertical250" }
         verticalflow3.add{ type = "label", caption = { "Rich.GPS" }, style = "richtitlelabel" }
         verticalflow3.add{ type = "line", direction = "horizontal", style = "richline" }
