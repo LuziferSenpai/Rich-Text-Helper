@@ -4,7 +4,6 @@ local s = data.raw["gui-style"].default
 s["richmainframe"] =
 {
     type = "frame_style",
-    parent = "dialog_frame",
     vertical_align = "center"
 }
 
@@ -267,7 +266,6 @@ s["richline280"] =
 s["richheadline"] =
 {
     type = "line_style",
-    parent = "richline",
     top_margin = 4,
     bottom_margin = 8
 }
