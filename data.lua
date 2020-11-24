@@ -359,5 +359,3 @@ data:extend
         scale = 1
     }
 }
-
-log( serpent.block( data.raw["gui-style"].default["richdragwidget"] ) )

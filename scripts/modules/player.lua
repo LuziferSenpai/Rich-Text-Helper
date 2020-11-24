@@ -1,5 +1,4 @@
-require "mod-gui"
-
+local mod_gui = require "mod-gui"
 local player_data = {}
 local module_libs =
 {
