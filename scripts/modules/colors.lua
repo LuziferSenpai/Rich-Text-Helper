@@ -140,7 +140,7 @@ function colors:gui( parent )
     if savedcolors.number > 0 then
         for i = 1, savedcolors.number do
             local index = tostring( i )
-            
+
             self:addpresetbutton( i, savedcolors.colors[index], savedcolors.colornames[index] )
         end
     end
@@ -190,11 +190,11 @@ function colors:update( element_type, index )
     local hex = ColortoHEX( color )
 
     colortable[1][1].slider_value = color.r
-    colortable[1][2].text = color.r
+    colortable[1][2].text = tostring(color.r)
     colortable[2][1].slider_value = color.g
-    colortable[2][2].text = color.g
+    colortable[2][2].text = tostring(color.g)
     colortable[3][1].slider_value = color.b
-    colortable[3][2].text = color.b
+    colortable[3][2].text = tostring(color.b)
     self.hexfield.text = hex
     self.colorlabel.style.font_color = color
     self.currenthex = hex

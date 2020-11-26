@@ -1,9 +1,10 @@
 {
     "name": "Rich_Text_Helper",
-    "version": "0.4.9",
+    "version": "0.4.10",
     "title": "Rich Text Helper",
     "author": "LuziferSenpai",
     "contact": "mods@luzifersenpai.de",
+    "homepage": "luzifersenpai.de",
     "description": "Helps you with renaming Stations, Entitys which support Backer Names, write Chat Messages or create Map Tags. Tutorial on the Mod Portal.",
     "dependencies": ["base"],
     "factorio_version": "1.1"
